@@ -1,0 +1,40 @@
+#cssmenu {
+    position: fixed;
+    /* top: 100px; */
+    /* left: 30px; */  
+    margin: -3px 0 0 0;
+    padding: 0;
+    font-family: Verdana, Helvetica, Arial, sans-serif;
+    font: 14px Verdana;
+    width: 242px;
+}
+
+#cssmenu h1{
+    font: 18px Verdana; 
+}
+
+#cssmenu ul {
+    list-style: none;
+    text-indent: inherit;
+    padding-left: 20px;
+}
+
+#cssmenu li {
+    margin-top: 3px;
+}
+
+#cssmenu a {
+    font: 10px Verdana;
+   
+    color: #646464;
+    display: block;
+    padding: 8px 5px 4px 20px;
+    height: 20px;
+    text-decoration: none;
+    background: url('../images/background.gif');
+}
+
+#cssmenu a:hover {
+    background: url('../images/highlight.gif') no-repeat right;
+    padding: 8px 5px 4px 40px;
+}

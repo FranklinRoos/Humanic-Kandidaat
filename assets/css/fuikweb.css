@@ -1,0 +1,406 @@
+/* Deze programma wordt door index.html voor de voorgeving gebruikt.
+	Program	: index.css
+	Datum		: 01-07-2016 
+*/	
+*{
+	padding:0;
+	margin :0;
+}
+body{
+	/* border:	2px solid red; */
+	
+}
+h1 {
+	text-align : center;
+}
+article{
+	border : 3px solid black;
+}
+.page-artical{
+	border	:	3px solid green;
+}
+/***Pesoonlijke gegevens***/
+#persoonlijke-gegevens{
+	margin-bottom : 2px;
+	
+	width : 100%;
+	/* height : 450px; */
+}
+#personalia{
+	float :left;
+	padding : 10px 10px;
+	/* margin-left: 10px; */
+	width	:	50%;
+/* 	height	:	325px; */
+	border	:	1px solid black;
+	font-size : 12px;
+	margin-bottom : 25px;
+}
+
+h1.profiel {
+     color: #ff7346;
+    font-size: 28px;
+    font-weight: bold;
+    padding: 5px 0 23px 2px;
+    margin-top: 5px;
+    letter-spacing: 1px;
+}
+
+#postcode #email #salaris {
+    width: 70%;
+}
+
+/* reisafstand  */
+
+.afstand {
+
+    margin-bottom: -40px;
+}
+
+
+#sociale_media{
+	float : right;
+        width : 40%;
+/* 	heigth : 325px; */
+	border : 1px solid black;
+        padding : 10px;
+        margin-left : -50px;
+}
+
+#sociaal_foto, #cv-upload{
+	
+        float: right;
+	margin-left : 25px;
+	/*width : 40%;*/
+}
+
+#fototest{
+	width : 60%;
+}
+
+#foto {
+        margin-left : 2px;
+        float : left;
+        margin-bottom : 10px;
+        width: 400px;
+}
+
+#cv {
+        margin-left : 5px;
+        margin-bottom : 25px;
+        width: 400px;
+        clear : both;
+}
+
+#myImg {
+    float: left;
+    width: 125px;
+    height: 100px;
+}
+
+
+.kop{
+	font-size : 11px;
+	color : blue;
+	font-weight : bold;
+	
+}
+
+#functies{
+	clear : both;
+        float : left;
+	width : 100%;
+	padding : 5px;
+	border : 1px solid black;
+	margin-bottom : 20px;
+	font-size : 12px;
+	
+}
+
+#mobielFinUitkering{
+	/* margin-bottom : 25px;
+	 */
+        clear : both;
+	width : 100%;
+	height : 200px;
+        margin-bottom : 10px;
+	/* border : 1px solid black; */
+}
+#mobielFinancieel{
+	float : left;
+	padding : 10px 5px;
+	/* margin: 10px; */
+	width	:	45%;
+/* 	height	:	325px; */
+	border	:	1px solid black;
+	;
+	font-size : 12px;
+} 
+
+#sectorwerk{
+	float : right;
+	padding : 10px 5px;
+	width : 50%;
+	margin-bottom : 25px;
+	border : 1px solid black;
+}
+
+#sector{
+	/* border : 1px solid black; */
+	margin-bottom : 10px;
+	
+}
+
+#bedrijf{
+	/* border : 1px solid black; */
+	
+	
+}
+
+#regio{
+	clear : both;
+	width : 100%;
+        height : 250px;
+                /*padding: 25px 0 80px 15px;*/ 
+                /*padding-top: 15px;
+	padding-bottom : 80px;
+                padding-left: 15px;*/
+       
+	border : 1px solid black;
+	margin-top : 5px;
+        margin-bottom : 25px;
+	font-size : 12px;
+	
+}
+
+/* #uitkering{
+	float: right;
+	margin-right : 10px;
+	width : 45%;
+/* 	heigth : 325px; */
+	/* border : 1px solid black; 
+} */
+
+/* .range{
+	float : right;
+} */
+
+
+
+/* #ervaringHeader{
+	font-size : 12px;
+	padding : -5px;
+} */
+
+/* #achternaam {
+	width : 500px;
+} */
+
+/* #divSlider {
+	margin-left : 10px;
+	vertical-align : middle;
+} */
+label {
+	font-size : small;
+	padding-left : 15px;
+}
+
+.checkbox {
+	float :right;
+}
+
+#sociale-links{
+	float		:	right;
+	width		:	300px;
+	height	:	220px;
+	border : 3px solid yellow;	
+}
+#sociale-links #media{
+	margin-top: 65px;
+	width		: 285px;
+	padding	: 5px 0 10px 10px;
+	border	: 1px solid black;
+	font-family	: verdana;
+}
+#media legend{
+	color: #999;
+	font-weight: bold;
+	padding: 4px 6px 4px 0;
+	margin: 0 0 5px 0;
+	font-size: 0.8em;
+}
+
+#media label{
+	width	:	90px;
+	float	: 	left;
+	padding: 2px 0 0 0;
+}
+#media	input{
+	margin	: 2px 0 7px 0;
+	padding	: 1px 3px 2px 3px; /*1023*/
+	border	: 1px solid #000;
+	background-color: transparent;
+	width		: 200px;
+}
+
+#auto{
+    margin-bottom : 40px;
+}
+
+#rijbewijs {
+    margin-bottom : 30px;
+}
+.ervaringSlider {
+	display : none;
+        margin-bottom : 10px;
+}
+
+
+
+.functieVak1 {
+    width : 40%;
+    
+    float : left;
+    margin-right : 50px;
+    
+}
+
+.functieVak2 {
+    width : 40%;
+    float : left;
+    
+    /*border : 1px solid black;*/
+}
+/***Gewenste functies***/
+/* #functies{
+	border	:	3px solid orange;
+	width		:	800px;
+	height	:	200px;
+} */
+
+/***Aanvullende voorzieningen***/
+.voorziening{
+	width		:	800px;
+	height	:	200px;
+	border	: 3px solid green;
+}
+#mobiliteit #mobiel{
+	float		: left;
+	width		: 300px;
+	padding	: 5px 0 10px 10px;
+	border	: 1px solid black;
+	font-family	: verdana;
+}
+#mobiliteit legend{
+	color: #999;
+	font-weight: bold;
+	padding: 4px 6px 4px 0;
+	margin: 0 0 5px 0;
+	font-size: 0.8em;
+}
+
+#mobiliteit label{
+	width	:	90px;
+	float	: 	left;
+	padding: 2px 0 0 0;
+}
+#mobiliteit	input{
+	margin	: 2px 0 7px 0;
+	padding	: 1px 3px 2px 3px; /*1023*/
+	border	: 1px solid #000;
+	background-color: transparent;
+	width		: 200px;
+}
+
+#aanvulling #tekstVeld{
+	float		:	right;
+	width 	:	400px;
+	height	:	180px;
+}
+
+/***Sectoor***/
+/* #sector{
+	width		:	800px;
+	height	:	 50px;
+	border 	: 	3px solid green;
+} */
+
+/***De grootte van het bedrijf***/
+#bedrijf-grootte{
+	width		:	800px;
+	height	:	 50px;
+	border	:	3px solid green;
+}
+/***Gewenste functie plaatsen***/
+
+.plaatspref {
+    margin-top: 10px;
+    
+    clear : both;
+    
+}
+
+
+/* #plaatsen{
+	width	: 800px;
+	height	: 200px;
+	border 	: 3px solid red;
+}
+#rij-een{
+	display	: inline-block;
+	float	: left;
+	border	: 3px solid red;
+	width	: 150px;
+	height	: 150px;
+	margin	: 5px;	
+}
+#rij-twee{
+	float	: left;
+	border	: 3px solid red;
+	width	: 150px;
+	height	: 150px;
+	margin	: 5px;	
+}
+#rij-drie{
+	float		:	left;
+	border	: 	3px solid red;
+	width		:	150px;
+	height	:	150px;
+	margin	:	5px;
+}*/
+/***Opmerkingen***/
+#opmerkingSection{
+	width : 100%;
+	/*margin-top : 10px;*/
+	margin-bottom : 26px;
+/* 	border : 1px solid black; */
+}
+
+#opslaan{
+	margin-top : 50px;
+	float : right;
+}
+
+
+.button{
+	background-color: transparent;
+	color: #000;
+	font-weight: bold;
+	width: auto;
+	margin: 0 5px 0 0;
+	padding: 1px 5px 2px 5px;
+	cursor: pointer;
+	float: right;
+}
+
+#submit {
+    margin-right : 5px;
+    margin: 15px 15px 15px 75px;
+    background-color: blue;
+}
+
+#upload-blok {
+    float: left;
+    margin-left: 500px;
+}
+

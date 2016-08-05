@@ -38,11 +38,13 @@ if (isset($_SESSION["suc6login"]) &&  isSet($_SESSION['loginnaam'])) //deze info
         
      }
 
-         
-         
-      /* mysqli_query($connection, "INSERT INTO `online`(`user_id`) // dit was experimenteel , de tabel 'online' kan dan ook uit de database
-		VALUES ('".$_SESSION["user_id"]."')")
-		or die(mysqli_error());   */     
+      else
+         {
+             echo "<script type=\"text/javascript\">
+           window.location = \"".$GLOBALS['path']."/application/modules/admin/indexAdmin.php\"
+            </script>";
+         }
+            
           
  }        
   else

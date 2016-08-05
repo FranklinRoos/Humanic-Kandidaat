@@ -85,6 +85,11 @@ h1.profiel {
         width: 400px;
 }
 
+
+#cv-upload {
+    margin-top: 20px;
+}
+
 #cv {
         margin-left : 5px;
         margin-bottom : 25px;

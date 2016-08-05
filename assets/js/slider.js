@@ -1,19 +1,22 @@
 $(document).ready(function () {
     
-       /* $foto = document.getElementById("foto");
-        if(isSet($foto)) {
-            
-                               window.location =   "http://localhost:7777/humanic/application/modules/humanic-portal/kandidaat.php";            
-            }*/
-       
-     
-        $cv = document.getElementById("cv");
+       /* $cv= document.getElementById("cv");
         if(isSet($cv)) {
             
                                window.location =   "http://localhost:7777/humanic/application/modules/humanic-portal/kandidaat.php";            
-            }
+            }*/
          
-       $("#buttonCv").click(function() {
+         $("#cv").change ( function() {
+                  windows.location= windows.location;  // ververs 
+            } );  
+            
+         $("#foto").change ( function() {
+                 windows.location= windows.location; // ververs 
+            } );
+         
+       
+         
+      /* $("#buttonCv").click(function() {
             var newWindow = '';
             var left = (screen.width/2)-(200);
             var top = (screen.height/2)-(150);
@@ -37,11 +40,23 @@ $(document).ready(function () {
                 newWindow.focus();
             }
             return false;
-        })
+        }) */
         
 
 
 
+			
+         /*   $(":file").change(function () {
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                reader.onload = imageIsLoaded;
+                reader.readAsDataURL(this.files[0]);
+            }
+        }); */
+
+        previewFiles(); // functie aanroep om een geselecteerdep profiel foto te tonen, deze functie op maandag 5 aug toegevoegd , de functie zelf zit tussen r543 en r573
+        
+        
 	$("#rijbewijsCheck").change(function() {
 				
 				if ($("#rijbewijsCheck").prop("checked") == true) {
@@ -52,14 +67,7 @@ $(document).ready(function () {
 					$("#autoCheck").prop("checked", false);
 				}
 			});
-			
-            $(":file").change(function () {
-            if (this.files && this.files[0]) {
-                var reader = new FileReader();
-                reader.onload = imageIsLoaded;
-                reader.readAsDataURL(this.files[0]);
-            }
-        });
+    
         
         if ($("#functieCheck1").prop("checked") === true) {
                 $("#ervaringSlider1").show();
@@ -531,7 +539,38 @@ function imageIsLoaded(e) {
 };
 
 
+    
+        //onderstaande functie toegevoegd op vrijdag 5 aug 2016
+  function previewFiles() {
 
+  var preview = document.querySelector('#preview');
+  var files   = document.querySelector('input[type=file]').files;
+
+  function readAndPreview(file) {
+
+    // Make sure `file.name` matches our extensions criteria
+    if ( /\.(jpe?g|png|gif)$/i.test(file.name) ) {
+      var reader = new FileReader();
+
+      reader.addEventListener("load", function () {
+        var image = new Image();
+        image.height = 100;
+        image.title = file.name;
+        image.src = this.result;
+        preview.appendChild( image );
+      }, false);
+
+      reader.readAsDataURL(file);
+    }
+        
+  }
+
+  if (files) {
+    [].forEach.call(files, readAndPreview);
+  }
+
+}   
+        //einde functie toegevoegd op vrijdag 5 aug 2016
 
 
 /* $(function(){
@@ -673,4 +712,4 @@ function imageIsLoaded(e) {
 			$("#ervaring6").on("slide", function(slideEvt) {
 				$("#ex6SliderVal").text(slideEvt.value);
 			});
-                  
+                        

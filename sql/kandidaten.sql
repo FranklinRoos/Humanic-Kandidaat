@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 04 aug 2016 om 12:30
+-- Gegenereerd op: 04 aug 2016 om 21:18
 -- Serverversie: 5.6.24
 -- PHP-versie: 5.5.24
 
@@ -360,18 +360,19 @@ CREATE TABLE IF NOT EXISTS `user` (
   `linkedin` varchar(80) NOT NULL,
   `twitter` varchar(80) NOT NULL,
   `facebook` varchar(80) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `user`
 --
 
 INSERT INTO `user` (`user_id`, `user_inlognaam`, `user_wachtwoord`, `user_authorisatie`, `user_email`, `user_activ`, `user_form-activ`, `activ_code`, `vergeetcode`, `user_online`, `datum_gezien`, `tijdstip_gezien`, `user_sinds`, `achternaam`, `tussenvoegsel`, `voornaam`, `straat`, `huisnummer`, `toevoeging`, `postcode`, `plaats`, `telefoon`, `foto`, `cv`, `geboortedatum`, `salaris`, `uitkering`, `uitkering_geldig_tot`, `user_sector`, `user_bedrijf_grootte`, `rijbewijs`, `auto`, `reisafstand`, `opmerking`, `linkedin`, `twitter`, `facebook`) VALUES
-(2, 'blackliq', '8bdc0a760490ca729fa9d4711ca70893', 'usr', 'blachout@upcmail.nl', 'yes', 'no', '', '', 'n', '2016-08-04', '11:59:52', '2016-07-01', 'Hout', 'van', 'Thijs', 'W.v.Hembyzestraat', '17', '', '1067PM', 'Amsterdam', '0615579992', 'blackliq.jpg', '', '1978-03-15', 3500, 'WW', '2017-08-25', 'ICT', '>500', 'ja', 'ja', 30, 'what the hell is going on																																																																																							', 'https://nl.linkedin.com/in/thijsvanhout/nl', 'https://twitter.com/', 'https://www.facebook.com/'),
-(3, 'Unal', '8bdc0a760490ca729fa9d4711ca70893', 'usr', 'selahattin@xs4all.nl', 'yes', 'no', '', '', 'n', '2016-08-04', '11:58:55', '2016-07-05', 'Unal', '', 'Selahattin', 'Hortensiastraat', '18', '5hoog', '1032CJ', 'Amsterdam', '062960228', '57a30cb224ab7.jpg', '57a30b5ad0736.pdf', '1960-05-16', 3000, 'WW', '2017-08-30', 'ICT', '50-100', 'ja', 'ja', 25, 'Het is tijd om te gaan zuipen																																																																																																																																																		', 'https://nl.linkedin.com/in/selahattinunal/nl', 'https://twitter.com/', 'https://www.facebook.com/'),
+(2, 'blackliq', '8bdc0a760490ca729fa9d4711ca70893', 'usr', 'blachout@upcmail.nl', 'yes', 'no', '', '', 'n', '2016-08-04', '13:44:16', '2016-07-01', 'Hout', 'van', 'Thijs', 'W.v.Hembyzestraat', '17', '', '1067PM', 'Amsterdam', '0615579992', 'blackliq.jpg', '', '1978-03-15', 3500, 'WW', '2017-08-25', 'ICT', '>500', 'ja', 'ja', 30, 'what the hell is going on																																																																																							', 'https://nl.linkedin.com/in/thijsvanhout/nl', 'https://twitter.com/', 'https://www.facebook.com/'),
+(3, 'Unal', '8bdc0a760490ca729fa9d4711ca70893', 'usr', 'selahattin@xs4all.nl', 'yes', 'no', '', '', 'n', '2016-08-04', '20:54:29', '2016-07-05', 'Unal', '', 'Selahattin', 'Hortensiastraat', '18', '5hoog', '1032CJ', 'Amsterdam', '062960228', '57a38fb579cc0.jpg', '57a30b5ad0736.pdf', '1960-05-16', 3000, 'WW', '2017-08-30', 'ICT', '50-100', 'ja', 'ja', 25, 'Het is tijd om te gaan zuipen																																																																																																																																																			', 'https://nl.linkedin.com/in/selahattinunal/nl', 'https://twitter.com/', 'https://www.facebook.com/'),
 (5, 'Franklin', '8bdc0a760490ca729fa9d4711ca70893', 'usr', 'frankieboy37@hotmail.com', 'yes', 'no', '', '', 'n', '2016-08-02', '12:35:55', '2016-07-06', 'Roos', '', 'Franklin', 'Watermolenstraat', '98', '', '1098bn', 'Amsterdam', '0629359610', 'Franklin.jpg', 'CV_Roos.pdf', '1973-06-15', 3200, 'WW', '2017-08-29', 'ICT', '100-500', 'ja', 'ja', 25, '	het is tijd om uit eten te gaan													', 'https://nl.linkedin.com/in/franklin-roos', 'https://twitter.com/', 'https://www.facebook.com/'),
-(6, 'balboa', '8bdc0a760490ca729fa9d4711ca70893', 'usr', 'balboadesus@hotmail.com', 'yes', 'no', '', '', 'n', '2016-08-04', '12:20:03', '2016-07-12', 'Dagama', 'Desus', 'Balboa', 'Columbusstraat', '28', '3hoog', '1778', 'schagen', '0206194483', '57a316e254904.jpg', '57a09ca733be2.pdf', '1975-11-25', 3200, 'WW', '2017-08-25', 'ICT', '1-10', 'ja', 'ja', 35, '	Blablablabla																																											', 'https://nl.linkedin.com/in/selahattinunal/nl', 'https://twitter.com/', 'https://www.facebook.com/'),
-(7, 'bart', '8bdc0a760490ca729fa9d4711ca70893', 'usr', 'bartkijlstragmail.com', 'yes', 'no', '', '', 'n', '2016-08-02', '12:34:54', '2016-08-01', 'Kijsltra', '', 'Bart', 'Muiderpoortstation', '35', '3hoog', '1092vw', 'Amsterdam', '0619874146', 'bart.jpg', '', '1958-08-10', 3400, 'WW', '0000-00-00', 'ICT', '', 'ja', 'ja', 35, '		', 'https://nl.linkedin.com/in/bartkijlstra', '', '');
+(6, 'balboa', '8bdc0a760490ca729fa9d4711ca70893', 'usr', 'balboadesus@hotmail.com', 'yes', 'no', '', '', 'n', '2016-08-04', '21:08:32', '2016-07-12', 'Dagama', 'Desus', 'Balboa', 'Columbusstraat', '28', '3hoog', '1778BT', 'schagen', '0206194483', '57a392cc69699.jpg', '57a09ca733be2.pdf', '1975-11-25', 3200, 'WW', '2017-08-25', 'ICT', '1-10', 'ja', 'ja', 35, '	Blablablabla																																														', 'https://nl.linkedin.com/in/selahattinunal/nl', 'https://twitter.com/', 'https://www.facebook.com/'),
+(7, 'bart', '8bdc0a760490ca729fa9d4711ca70893', 'usr', 'bartkijlstragmail.com', 'yes', 'no', '', '', 'n', '2016-08-02', '12:34:54', '2016-08-01', 'Kijsltra', '', 'Bart', 'Muiderpoortstation', '35', '3hoog', '1092vw', 'Amsterdam', '0619874146', 'bart.jpg', '', '1958-08-10', 3400, 'WW', '0000-00-00', 'ICT', '', 'ja', 'ja', 35, '		', 'https://nl.linkedin.com/in/bartkijlstra', '', ''),
+(8, 'Ron', '8bdc0a760490ca729fa9d4711ca70893', 'usr', 'rdewit599@gmail.com', 'yes', 'no', '', '', 'n', '2016-08-04', '20:57:05', '2016-07-13', 'Wit', 'de', 'Ron', 'Hupsakeestraat', '525', '7hoog', '1107ZO', 'Amsterdam', '0645845457', '57a39063b4cd3.jpg', '57a39057db3ff.txt', '1974-04-14', 3300, 'WW', '2017-02-28', 'ICT', '', 'nee', 'nee', 15, '	Ik wil koffie				', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -788,7 +789,7 @@ ALTER TABLE `sector`
 -- AUTO_INCREMENT voor een tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+  MODIFY `user_id` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT voor een tabel `user_bedrijf`
 --

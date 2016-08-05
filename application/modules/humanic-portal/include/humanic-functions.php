@@ -1013,9 +1013,9 @@ function handleKandidaatRegForm ()
      verwerkSector();
      verwerkBedrijf();
      error_reporting(0);
-     maakSessieVariabelen();
-     showKandidaatRegForm();
+     maakSessieVariabelen();     
      header("Refresh:0");
+     showKandidaatRegForm();
      error_reporting(E_ALL);
  }
  
@@ -1139,11 +1139,14 @@ function handleKandidaatRegForm ()
                     echo "<label  for=\"foto\">Foto uploaden</label>";
                     echo "<div>";
                     
-                            if($_SESSION['foto']){
+                            if(isSet($_SESSION['foto']) && !isSet($_FILES['foto'])){
                            // echo "<img class=\"col-sm-4\" id=\"myImg\" src=\"$imagepath"."$foto\" alt=\"your image\" width=80px height=80px style=\"margin: 5px;\"/>";
                                 echo "<img class=\"col-sm-4\" id=\"myImg\" src=\"$imagepath"."$foto\" alt=\"your image\" width=100px height=100px style=\"margin: 5px;\"/>";
                                 }
-                            echo "<input class=\"col-sm-3\" type=\"file\" id=\"foto\" name=\"foto\"  />zicthbaar na opslaan";
+                            echo "<input class=\"col-sm-3\" type=\"file\" id=\"foto\" name=\"foto\" onchange=\"previewFiles()\" multiple>";
+                            
+                            echo "<div id=\"preview\"></div>";
+                            //echo "<div id=\"preview\"></div>";
                     echo "</div>";      
          echo "</div>";
  echo "</section>";           //echo "</div>";
@@ -1881,6 +1884,7 @@ function handleKandidaatRegForm ()
                         `straat` =     '".$straat."',
                         `huisnummer`=  '".$huisnummer."',
                         `toevoeging` = '".$toevoeging."',
+                        `postcode` = '".$postcode."',
                         `plaats` =     '".$woonplaats."',
                          `foto` = '".$foto."',  
                         `user_email` =      '".$email."',
@@ -2020,7 +2024,7 @@ function handleKandidaatRegForm ()
 
 function verwerkCV ()
  {
-        if(isSet($_POST["submit"]) && isSet($_FILES['cv']) && $_FILES['cv'] != "")
+        if(isSet($_POST["submit"]) && isSet($_FILES['cv']) && $_FILES['cv'] != "")// Testen op lege FILES variabelen schijnt niet te werken, ze blijken nl nooit 'leeg' te zijn!
              {
                      global $connection;
                     $uploadOk = 1;
@@ -2034,7 +2038,7 @@ function verwerkCV ()
                     //echo "de naam van de sessie cv: '".$_SESSION['cv']."'<br/>";
                     //echo "de naam van de nieuwe cv: '".$target_file."'<br/>";
 
-                    $extensionPos = strripos($_SESSION['cv'], ".");// achterhaal op welke positie de punt voorkomt in de naam, begint op positie 0
+                    $extensionPos = strripos($_SESSION['cv'], ".");// achterhaal op welke positie de punt voorkomt in de naam, tellen begint vanaf positie 0
                     //echo "de positie van de punt in de cv naam: '".$extensionPos."'<br/>";
     
                     $strLen = strlen($_SESSION['cv']);// de lengte van de cv bepalen
@@ -2044,7 +2048,7 @@ function verwerkCV ()
                     if ($_SESSION['cv'] != ""  &&  $_FILES['cv'] !="")
                         {
                     //controle file type, niet gelijk dan file type vervangen
-                                 if ($nwCvFileType != $cvFileType && $strLenNwCvFileType > 0)// als de extensie van de sessie cv verschilt van de extensie nieuw opgegeven cv
+                                 if ($nwCvFileType != $cvFileType && $strLenNwCvFileType > 0)// als de extensie van de sessie cv verschilt van de extensie nieuw opgegeven cv en de extensie van de nieuwe cv gorter is dan 0 tekens
                                      {
                                             $_FILES["cv"]["name"] = substr_replace($_SESSION['cv'],$nwCvFileType, $extensionPos + 1);//dan de naam van de sessei cv 
                                             $_SESSION['cv'] = $_FILES["cv"]["name"] ;// behouden en alleen de andere extensie aan plakken en dit weer toekennen aan de sessie cv

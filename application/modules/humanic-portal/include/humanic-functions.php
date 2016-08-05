@@ -142,61 +142,68 @@ function handleForm()
             {   // vraag het correcte wachtwoord en de authorisatie op 
                 
                 $auth = getAuthorisatie(strtolower($_POST['login']));//de auhtorisatie wordt hier opgevraagd
-                $correct_passwd = trim(getPassword($_POST['login']));//hier wordt het ww behorende bij de loginnaam opgevraagd
-                if (md5(trim($_POST['passwd']))==trim($correct_passwd))//hier wordt het ww behorende bij de loginnaam vergeleken met het opgegeven ww
-                  {
+                if($auth != 'admin')
+                    {
+                        echo "<script type=\"text/javascript\">
+                                    window.location = \"".$GLOBALS['path']."/application/modules/admin/indexAdmin.php\"
+                                </script>";                   
+                    
+                    }
+                else
+                {
+                            $correct_passwd = trim(getPassword($_POST['login']));//hier wordt het ww behorende bij de loginnaam opgevraagd
+                             if (md5(trim($_POST['passwd']))==trim($correct_passwd))//hier wordt het ww behorende bij de loginnaam vergeleken met het opgegeven ww
+                                    {
                       
-                       $sql2 = mysqli_query($connection,"SELECT * FROM `user` WHERE `user_inlognaam`='".$_POST["login"]."' AND `user_activ`='yes'");
+                                            $sql2 = mysqli_query($connection,"SELECT * FROM `user` WHERE `user_inlognaam`='".$_POST["login"]."' AND `user_activ`='yes'");
                       
-                        if (mysqli_num_rows($sql2)==0)  
-                            {
-                             die ("U bent nog niet geregistreerd,of uw registratite is nog niet voltooid  ");
+                                            if (mysqli_num_rows($sql2)==0)  
+                                                    {
+                                                            die ("U bent nog niet geregistreerd,of uw registratite is nog niet voltooid  ");
                             
-                            }
-                       while ($row = mysqli_fetch_assoc($sql2))//de login procedure is succesvol doorlopen,dus kunnen de sessie-variabelen nu gemaakt worden
-                         {
-                             $userid = $row['user_id'];
-                             $_SESSION["user_id"] = $userid;
-                             $_SESSION['user-form'] = $row['user_form-activ'];
-                             $_SESSION['passwd'] = md5(trim($_POST['passwd']));
-                             $_SESSION['email'] = $row['user_email'];
-			     date_default_timezone_set("Europe/Amsterdam");
-                             $_SESSION['user_sinds'] = $row['user_sinds'];
-                             $_SESSION['current_date'] = date("y-m-d");
-                             $_SESSION['current_tijdstip'] = date("H:i:s");
-                             if(!isSet($row['datum_gezien']))//dus als het aacount de eerste keer na registratie en activataie gebruikt word,
-                               {
-                                 $laatsgezien = $_SESSION['current_date']; // krijgt $laatsgezien de huidige datum(current_date)                           
-                               }
-                             else 
-                                 {
-                                   $laatsgezien = $row['datum_gezien'];//anders de opgeslagen datum uit de db
-                                 }
-                            if(!isSet($row['tijdstip_gezien']))//dus als het account de eerste keer na registratie en activatie gebruikt word,
-                               {
-                                 $laatsgezienTijdstip = $_SESSION['current_tijdstip'];//krijgt laatsgezienTijdstip het huidige tijdstip(current_tijdstip) 
-                               }
-                            else 
-                                {
-                                  $laatsgezienTijdstip = $row['tijdstip_gezien'];//en anders het opgeslagen tijdstip uit de db
-                                }
-                             //Informatie uit de user tabel
-                             maakSessieVariabelen();
-                             $_SESSION['laatsgezien'] = $laatsgezien;
-                             $_SESSION['laatsgezienTijdstip'] = $laatsgezienTijdstip;
-                           
-                             $_SESSION['onlineIP'] = $_SERVER['REMOTE_ADDR'];                             
-                             $_SESSION["user_authorisatie"] = $auth;
-                             $_SESSION["loginnaam"] = $_POST["login"];
-                             //$_SESSION["password"] = md5(trim($_POST["passwd"]));
-                             $_SESSION["suc6login"] = "suc6login";
-                             //De kolommen 'datum_gezien' , 'tijdstip_gezien' en 'user_online' van de ingelogde user worden bijgewerkt
-                               $sql3 = mysqli_query($connection, "UPDATE `user` SET
+                                                    }
+                                            while ($row = mysqli_fetch_assoc($sql2))//de login procedure is succesvol doorlopen,dus kunnen de sessie-variabelen nu gemaakt worden
+                                                    {
+                                                            $userid = $row['user_id'];
+                                                            $_SESSION["user_id"] = $userid;
+                                                            $_SESSION['user-form'] = $row['user_form-activ'];
+                                                            $_SESSION['passwd'] = md5(trim($_POST['passwd']));
+                                                            $_SESSION['email'] = $row['user_email'];
+                                                            date_default_timezone_set("Europe/Amsterdam");
+                                                            $_SESSION['user_sinds'] = $row['user_sinds'];
+                                                            $_SESSION['current_date'] = date("y-m-d");
+                                                            $_SESSION['current_tijdstip'] = date("H:i:s");
+                                            if(!isSet($row['datum_gezien']))//dus als het aacount de eerste keer na registratie en activataie gebruikt word,
+                                                    {
+                                                            $laatsgezien = $_SESSION['current_date']; // krijgt $laatsgezien de huidige datum(current_date)                           
+                                                    }
+                                            else 
+                                                    {
+                                                            $laatsgezien = $row['datum_gezien'];//anders de opgeslagen datum uit de db
+                                                    }
+                                           if(!isSet($row['tijdstip_gezien']))//dus als het account de eerste keer na registratie en activatie gebruikt word,
+                                                    {
+                                                            $laatsgezienTijdstip = $_SESSION['current_tijdstip'];//krijgt laatsgezienTijdstip het huidige tijdstip(current_tijdstip) 
+                                                    }
+                                           else 
+                                                    {
+                                                            $laatsgezienTijdstip = $row['tijdstip_gezien'];//en anders het opgeslagen tijdstip uit de db
+                                                    }
+                                                        //Informatie uit de user tabel
+                                                           // maakSessieVariabelen();
+                                                            $_SESSION['laatsgezien'] = $laatsgezien;
+                                                            $_SESSION['laatsgezienTijdstip'] = $laatsgezienTijdstip;                  
+                                                            $_SESSION['onlineIP'] = $_SERVER['REMOTE_ADDR'];                             
+                                                            $_SESSION["user_authorisatie"] = $auth;
+                                                            $_SESSION["loginnaam"] = $_POST["login"];
+                                                            $_SESSION["suc6login"] = "suc6login";
+                                                    //De kolommen 'datum_gezien' , 'tijdstip_gezien' en 'user_online' van de ingelogde user worden bijgewerkt
+                                                        $sql3 = mysqli_query($connection, "UPDATE `user` SET
 		                         `user_online` = 'y', `datum_gezien` = '".$_SESSION['current_date']."', `tijdstip_gezien`= '".$_SESSION['current_tijdstip']."'                      
 		                         WHERE `user_id` = '".$_SESSION["user_id"]."'")
 		                         or die(mysqli_error());
-                                      $useronline = $row['user_online'];
-                                      $_SESSION['useronline'] = $useronline;
+                                                         $useronline = $row['user_online'];
+                                                        $_SESSION['useronline'] = $useronline;
                              
             
                              //onlineLog();//Met deze functie(in application/modules/psinfoportal/include/onlineFunctions.php) 
@@ -238,6 +245,7 @@ function handleForm()
                     echo "<b>Volgens geruchten mag u maar 3 keer inloggen!</b><br>";
                     }
                  }
+              }
             }
              else
             {  echo "<b>U moet wel een echt wachtwoord invullen!</b><br>";

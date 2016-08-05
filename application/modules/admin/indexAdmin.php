@@ -50,7 +50,8 @@ if(isset($_SESSION['loginnaam']))
      {
      
      echo "<br /><div class=\"bericht\"><h2 align=center>Dit is de website van HumanIC</h2>";
-    echo "<br /><h3>U dient eerst<a href=\"../humanic-portal/login.php\"> ingelogd</a> te zijn</h3></div>";
+     echo "<br/><h3>U heeft niet de juiste rechten</h3>";
+    //echo "<br /><h3>U dient eerst<a href=\"../humanic-portal/login.php\"> ingelogd</a> te zijn</h3></div>";
     fFooter();
      
     }

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 04 aug 2016 om 21:18
+-- Gegenereerd op: 05 aug 2016 om 21:06
 -- Serverversie: 5.6.24
 -- PHP-versie: 5.5.24
 
@@ -118,9 +118,9 @@ CREATE TABLE IF NOT EXISTS `nav` (
   `nav_show` enum('y','n') NOT NULL,
   `nav_parent_id` int(2) NOT NULL DEFAULT '0',
   `nav_taal` enum('nl','en') NOT NULL DEFAULT 'nl',
-  `nav_auth` enum('usr','admin','ptr','bos') NOT NULL DEFAULT 'usr',
+  `nav_auth` enum('usr','admin','ptr','elm') NOT NULL DEFAULT 'elm',
   `volgorde` int(2) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `nav`
@@ -144,7 +144,8 @@ INSERT INTO `nav` (`nav_id`, `nav_naam`, `nav_url`, `nav_place`, `nav_show`, `na
 (21, 'Mijn Gegevens', 'application/modules/humanic-portal/kandidaat.php', 'header', 'y', 0, 'nl', 'usr', 15),
 (22, '<div class=adres1><div class=adres>Adres Gegevens</div><br/><div class=adresR>H.E.J. Wenkenbachweg 123<br/>1096 AM Amsterdam Nederland</div>\r\n\r\n', '', 'footer', 'y', 0, 'nl', 'usr', 17),
 (23, '<div class=adres1><div class=adres>Contact</div><br/>\r\n<div class=adresR>Email: info@Humanic.cloud<br/>\r\nTel: +31(0)852736963</div>', '', 'footer', 'y', 0, 'nl', 'usr', 18),
-(24, '', '', '', '', 0, 'nl', 'usr', 0);
+(24, '', '', '', '', 0, 'nl', 'usr', 0),
+(25, '<div class=nav>Home</div>', 'index.php', 'header', 'y', 0, 'nl', 'elm', 1);
 
 -- --------------------------------------------------------
 
@@ -231,7 +232,7 @@ CREATE TABLE IF NOT EXISTS `pages` (
   `page_keywords` varchar(100) NOT NULL,
   `page_show` enum('y','n') NOT NULL,
   `page_taal` enum('en','nl') NOT NULL DEFAULT 'nl'
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `pages`
@@ -247,7 +248,8 @@ INSERT INTO `pages` (`page_id`, `page_nav_id`, `page_content`, `page_title`, `pa
 (8, 8, '<h5>\r\nWebsite disclaimer: cover<hr><br>\r\nSEQ Legal LLP<br>\r\n<ul>\r\n<li>1.	This template legal document was produced and published by SEQ Legal LLP.</li>\r\n<li>2.	We control the copyright in this template, and you may only use this template in accordance with the licensing provisions in our terms and conditions. Those licensing provisions include an obligation to retain the SEQ Legal credit incorporated into the template.</li>\r\n<li>3.	The current version of our terms and conditions is available at: http://www.seqlegal.com/our-terms-and-conditions.</li>\r\n<li>4.	If you would like to use this template without the SEQ Legal credit, you can purchase a licence to do so at: http://www.website-contracts.co.uk/seqlegal-licences.html</li>\r\n<li>5.	You will need to edit this template before use. Guidance notes to help you do so are set out at the end of the template. During the editing process, you should delete those guidance notes and this cover sheet. Square brackets in the body of the document indicate areas that require editorial attention. Forward slashes and "ORs" in the body of the document indicate alternative provisions. By the end of the editing process, there should be no square brackets left in the body of the document, and only one alternative from each set of alternatives should remain.</li>\r\n<li>6.	If you have any doubts about the editing or use of this template, you should seek professional legal advice.</li>\r\n<li>7.	You may be able to get free legal guidance using our public Q&A system, available at: http://www.seqlegal.com/questions.</li> \r\n<li>8.	You can request a quote for legal services (including the adaptation or review of a legal document produced from this template) using this form: http://www.seqlegal.com/request-quote.</li>\r\n</ul> \r\n\r\nWebsite disclaimer<br>\r\n1.	Introduction<hr>\r\n<ul>\r\n<li>1.1	This disclaimer shall govern your use of our website.</li>\r\n<li>1.2	By using our website, you accept this disclaimer in full; accordingly, if you disagree with this disclaimer or any part of this disclaimer, you must not use our website.</li>\r\n<li>1.3	Our website uses cookies; by using our website or agreeing to this disclaimer, you consent to our use of cookies in accordance with the terms of our [privacy and cookies policy].</li>\r\n</ul>\r\n2.	Credit<hr>\r\n<ul>\r\n<li>2.1	This document was created using a template from SEQ Legal (http://www.seqlegal.com).</li>\r\n	You must retain the above credit, unless you purchase a licence to use this document without the credit. You can purchase a licence at: http://www.website-contracts.co.uk/seqlegal-licences.html. Warning: use of this document without the credit, or without purchasing a licence, is an infringement of copyright.</li>\r\n</ul>	\r\n3.	Copyright notice<hr>\r\n<ul>\r\n<li>3.1	Copyright (c) [2015] [Pieter Spierenburg].</li>\r\n<li>3.2	Subject to the express provisions of this disclaimer:</li>\r\n<li>(a)	we, together with our licensors, own and control all the copyright and other intellectual property rights in our website and the material on our website; and</li>\r\n<li>(b)	all the copyright and other intellectual property rights in our website and the material on our website are reserved.</li>\r\n</ul>\r\n4.	Licence to use website<hr>\r\n<ul>\r\n<li>4.1	You may:</li>\r\n<li>(a)	view pages from our website in a web browser;</li>\r\n<li>(b)	download pages from our website for caching in a web browser; and</li>\r\n<li>(c)	print pages from our website,\r\n	subject to the other provisions of this disclaimer.</li>\r\n<li>4.2	Except as expressly permitted by Section 4.1 or the other provisions of this disclaimer, you must not download any material from our website or save any such material to your computer.</li>\r\n<li>4.3	You may only use our website for [your own personal and business purposes], and you must not use our website for any other purposes.</li>\r\n<li>4.4	Unless you own or control the relevant rights in the material, you must not:</li>\r\n<li>(a)	republish material from our website (including republication on another website);</li>\r\n<li>(b)	sell, rent or sub-license material from our website;</li>\r\n<li>(c)	show any material from our website in public;</li>\r\n<li>(d)	exploit material from our website for a commercial purpose; or</li>\r\n<li>(e)	redistribute material from our website.</li>\r\n<li>4.5	We reserve the right to restrict access to areas of our website, or indeed our whole website, at our discretion; you must not circumvent or bypass, or attempt to circumvent or bypass, any access restriction measures on our website.</li>\r\n</ul>\r\n5.	Acceptable use<hr>\r\n<ul>\r\n<li>5.1	You must not:</li>\r\n<li>(a)	use our website in any way or take any action that causes, or may cause, damage to the website or impairment of the performance, availability or accessibility of the website;</li>\r\n<li>(b)	use our website in any way that is unlawful, illegal, fraudulent or harmful, or in connection with any unlawful, illegal, fraudulent or harmful purpose or activity;</li>\r\n<li>(c)	use our website to copy, store, host, transmit, send, use, publish or distribute any material which consists of (or is linked to) any spyware, computer virus, Trojan horse, worm, keystroke logger, rootkit or other malicious computer software;</li>\r\n<li>(d)	conduct any systematic or automated data collection activities (including without limitation scraping, data mining, data extraction and data harvesting) on or in relation to our website without our express written consent;</li>\r\n<li>(e)	[access or otherwise interact with our website using any robot, spider or other automated means;]</li>\r\n<li>(f)	[violate the directives set out in the robots.txt file for our website; or]</li>\r\n<li>(g)	[use data collected from our website for any direct marketing activity (including without limitation email marketing, SMS marketing, telemarketing and direct mailing).]</li>\r\n<li>5.2	You must not use data collected from our website to contact individuals, companies or other persons or entities.</li>\r\n<li>5.3	You must ensure that all the information you supply to us through our website, or in relation to our website, is [true, accurate, current, complete and non-misleading].</li>\r\n</ul>\r\n6.	Limited warranties<hr>\r\n<ul>\r\n<li>6.1	We do not warrant or represent:</li>\r\n<li>(a)	the completeness or accuracy of the information published on our website;</li>\r\n<li>(b)	that the material on the website is up to date; or</li>\r\n<li>(c)	that the website or any service on the website will remain available.</li>\r\n<li>6.2	We reserve the right to discontinue or alter any or all of our website services, and to stop publishing our website, at any time in our sole discretion without notice or explanation; and save to the extent expressly provided otherwise in this disclaimer, you will not be entitled to any compensation or other payment upon the discontinuance or alteration of any website services, or if we stop publishing the website.</li>\r\n<li>6.3	To the maximum extent permitted by applicable law and subject to Section 7.1, we exclude all representations and warranties relating to the subject matter of this disclaimer, our website and the use of our website.</li>\r\n</ul>\r\n7.	Limitations and exclusions of liability<hr>\r\n<ul>\r\n<li>7.1	Nothing in this disclaimer will:</li>\r\n<li>(a)	limit or exclude any liability for death or personal injury resulting from negligence;</li>\r\n<li>(b)	limit or exclude any liability for fraud or fraudulent misrepresentation;</li>\r\n<li>(c)	limit any liabilities in any way that is not permitted under applicable law; or</li>\r\n<li>(d)	exclude any liabilities that may not be excluded under applicable law.</li>\r\n<li>7.2	The limitations and exclusions of liability set out in this Section 7 and elsewhere in this disclaimer:</li> \r\n<li>(a)	are subject to Section 7.1; and</li>\r\n<li>(b)	govern all liabilities arising under the disclaimer or relating to the subject matter of the disclaimer, including liabilities arising in contract, in tort (including negligence) and for breach of statutory duty, except to the extent expressly provided otherwise in the disclaimer.</li>\r\n<li>7.3	To the extent that our website and the information and services on our website are provided free of charge, we will not be liable for any loss or damage of any nature.</li>\r\n<li>7.4	We will not be liable to you in respect of any losses arising out of any event or events beyond our reasonable control.</li>\r\n<li>7.5	We will not be liable to you in respect of any business losses, including (without limitation) loss of or damage to profits, income, revenue, use, production, anticipated savings, business, contracts, commercial opportunities or goodwill.</li>\r\n<li>7.6	We will not be liable to you in respect of any loss or corruption of any data, database or software.</li>\r\n<li>7.7	We will not be liable to you in respect of any special, indirect or consequential loss or damage.</li>\r\n<li>7.8	You accept that we have an interest in limiting the personal liability of our officers and employees and, having regard to that interest, you acknowledge that we are a limited liability entity; you agree that you will not bring any claim personally against our officers or employees in respect of any losses you suffer in connection with the website or this disclaimer (this will not, of course, limit or exclude the liability of the limited liability entity itself for the acts and omissions of our officers and employees).</li>\r\n</ul>\r\n8.	Variation<hr>\r\n<ul>\r\n<li>8.1	We may revise this disclaimer from time to time.</li>\r\n<li>8.2	The revised disclaimer shall apply to the use of our website from the time of publication of the revised disclaimer on the website.</li>\r\n</ul> \r\n9.	Severability<hr>\r\n<ul>\r\n<li>9.1	If a provision of this disclaimer is determined by any court or other competent authority to be unlawful and/or unenforceable, the other provisions will continue in effect.</li>\r\n<li>9.2	If any unlawful and/or unenforceable provision of this disclaimer would be lawful or enforceable if part of it were deleted, that part will be deemed to be deleted, and the rest of the provision will continue in effect. </li>\r\n<li>10.	Law and jurisdiction\r\n<li>10.1	This disclaimer shall be governed by and construed in accordance with [dutch-law].</li>\r\n<li>10.2	Any disputes relating to this disclaimer shall be subject to the [exclusive / non-exclusive] jurisdiction of the courts of [Netherlands].</li>\r\n</ul>\r\n11.	Statutory and regulatory disclosures<hr>\r\n<ul>\r\n<li>11.1	We are registered in [trade register]; you can find the online version of the register at [URL], and our registration number is [number].</li>\r\n<li>11.2	We are subject to [authorisation scheme], which is supervised by [supervisory authority].</li>\r\n<li>11.3	We are registered as [title] with [professional body] in [the Netherlands] and are subject to [rules], which can be found at [URL].</li>\r\n<li>11.4	We subscribe to [code(s) of conduct], which can be consulted electronically at [URL(s)].</li>\r\n<li>11.5	Our VAT number is [number].\r\n</ul>\r\n12.	Our details<hr>\r\n<ul>\r\n<li>12.1	This website is owned and operated by [name].</li>\r\n<li>12.2	We are registered in [Netherlands] under registration number [number], and our registered office is at [address].</li>\r\n<li>12.3	Our principal place of business is at [address].</li>\r\n<li>12.4	You can contact us by writing to the business address given above, by using our website contact form, by email to [spierenburg@law.eur.nl] or by telephone on [0611164440].</li>\r\n</ul>\r\n</h5>', 'Disclaimer', 'disclaimer', 'disclaimer', 'y', 'nl'),
 (9, 9, '<h5>\r\nPrivacy Policy VOORBEELD<hr>\r\n<p> \r\n<i>Pieterspierenburg.com</i> zal de privacy van alle gebruikers van haar site waarborgen en wij zullen ten alle tijden de persoonlijke informatie die u aan ons verschaft vertrouwelijk wordt behandeld.<br> Wij zullen uw gegevens slechts gebruiken om de bestellingen zo snel en gemakkelijk mogelijk te laten verlopen.<br> Voor het overige zullen wij deze gegevens uitsluitend gebruiken met uw toestemming. Pieterspierenburg.com zal uw persoonlijke gegevens niet aan derden verkopen en zal deze uitsluitend aan derden ter beschikking stellen die zijn betrokken bij het uitvoeren van uw bestelling.<br><br> \r\n \r\nPieterspierenburg.com gebruikt de verzamelde gegevens om haar klanten de volgende diensten te leveren:\r\n<ul> \r\n<li>Als u een bestelling of offerteaanvraag plaatst, hebben we uw naam, e-mailadres, afleveradres en betaalgegevens nodig om uw bestelling uit te voeren en u van het verloop daarvan op de hoogte te houden.</li> \r\n \r\n<li>Om het winkelen en het proces van offerte aanvragen bij Pieterspierenburg.com zo aangenaam mogelijk te laten zijn, slaan wij met uw toestemming uw persoonlijke gegevens en de gegevens met betrekking tot uw bestelling of offerteaanvraag en het gebruik van onze diensten op. Hierdoor kunnen wij de website persoonlijker maken.</li>  \r\n \r\n<li> kunnen uw e-mailadres gebruiken om u informatie te verschaffen over de ontwikkeling van onze website en over onze speciale aanbiedingen en acties. Als u hier geen prijs op stelt, kunt u zich uitschrijven via onze website.</li>  \r\n \r\n<li>Indien u bij Pieterspierenburg.com een bestelling plaatst bewaren wij, indien gewenst, uw gegevens op een Secure Server. U kunt een gebruikersnaam en wachtwoord opgeven zodat uw naam en adres, telefoonnummer, e-mailadres, aflever- en betaalgegevens, zodat u deze niet bij iedere nieuwe bestelling hoeft in te vullen.</li>  \r\n \r\n<li>Gegevens over het gebruik van onze site en de feedback die we krijgen van onze bezoekers helpen ons om onze site verder te ontwikkelen en te verbeteren. Als u besluit een recensie te schrijven, kunt u zelf kiezen of u uw naam of andere persoonlijke gegevens toevoegt. We zijn benieuwd naar de meningen van onze bezoekers, maar behouden het recht bijdragen die niet aan onze sitevoorwaarden voldoen niet te publiceren.</li>  \r\n \r\n<li>Als u reageert op een actie of prijsvraag, vragen wij uw naam, adres en e-mailadres. Deze gegevens gebruiken we om de actie uit te voeren, de prijswinnaar(s) bekend te maken, en de respons op onze marketingacties te meten.</li>  \r\n </ul>\r\nPieterspierenburg.com verkoopt uw gegevens niet<br> \r\nPersoonlijke gegevens zullen nooit aan derden verkocht worden en zal deze uitsluitend aan derden ter beschikking stellen indien deze betrokken zijn bij het uitvoeren van uw bestelling. Onze werknemers en door ons ingeschakelde derden zijn verplicht om de vertrouwelijkheid van uw gegevens te respecteren.<br><br> \r\n  \r\nCookies<hr><br> \r\nCookies zijn kleine stukjes informatie die door uw browser worden opgeslagen op uw computer.<br> \r\nOnze website gebruikt deze cookies om u te herkennen bij een volgend bezoek. Deze Cookies stellen ons in staat om informatie te verzamelen over het gebruik van onze diensten en deze te verbeteren en aan te passen aan de wensen van onze bezoekers. Onze cookies geven informatie met betrekking tot persoonsidentificatie. U kunt uw browser ook zo instellen dat u tijdens het winkelen bij Pieterspierenburg.com geen cookies ontvangt.<hr><br><br> \r\n \r\nIndien u nog vragen mocht hebben over de Privacy Policy van Onze website, dan kunt u contact met ons opnemen. Onze klantenservice helpt u verder als u informatie nodig heeft over uw gegevens of als u deze wilt wijzigen. In geval wijziging van onze Privacy Policy nodig mocht zijn, dan vindt u op deze pagina altijd de meest recente informatie. \r\n\r\n</h5>', 'Privacy Beleid', 'privacy beleid', 'privacy, beleid, regels', 'y', 'nl'),
 (10, 50, '', 'Administrator Panel HumanicIC', 'administrator taken', 'administrator taken, HumanicIC', 'y', 'nl'),
-(11, 5, '', 'CV-UPLOAD', 'cv-upload', 'cv, upload', 'y', 'nl');
+(11, 5, '', 'CV-UPLOAD', 'cv-upload', 'cv, upload', 'y', 'nl'),
+(12, 12, '<div id=introtext>Administrator App<hr>   <br><br>\r\n<h4 class=beheer>Beheerders: </h4>\r\n<ul id= adminapp>\r\n<li>Elmar Geurts</li><br><br>\r\n<li>Frank Breet</li>\r\n</div>', '<div id=header>HumanIC Query Straat</div>', 'database queries', 'humanic, queries, database', 'y', 'nl');
 
 -- --------------------------------------------------------
 
@@ -360,19 +362,20 @@ CREATE TABLE IF NOT EXISTS `user` (
   `linkedin` varchar(80) NOT NULL,
   `twitter` varchar(80) NOT NULL,
   `facebook` varchar(80) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `user`
 --
 
 INSERT INTO `user` (`user_id`, `user_inlognaam`, `user_wachtwoord`, `user_authorisatie`, `user_email`, `user_activ`, `user_form-activ`, `activ_code`, `vergeetcode`, `user_online`, `datum_gezien`, `tijdstip_gezien`, `user_sinds`, `achternaam`, `tussenvoegsel`, `voornaam`, `straat`, `huisnummer`, `toevoeging`, `postcode`, `plaats`, `telefoon`, `foto`, `cv`, `geboortedatum`, `salaris`, `uitkering`, `uitkering_geldig_tot`, `user_sector`, `user_bedrijf_grootte`, `rijbewijs`, `auto`, `reisafstand`, `opmerking`, `linkedin`, `twitter`, `facebook`) VALUES
-(2, 'blackliq', '8bdc0a760490ca729fa9d4711ca70893', 'usr', 'blachout@upcmail.nl', 'yes', 'no', '', '', 'n', '2016-08-04', '13:44:16', '2016-07-01', 'Hout', 'van', 'Thijs', 'W.v.Hembyzestraat', '17', '', '1067PM', 'Amsterdam', '0615579992', 'blackliq.jpg', '', '1978-03-15', 3500, 'WW', '2017-08-25', 'ICT', '>500', 'ja', 'ja', 30, 'what the hell is going on																																																																																							', 'https://nl.linkedin.com/in/thijsvanhout/nl', 'https://twitter.com/', 'https://www.facebook.com/'),
-(3, 'Unal', '8bdc0a760490ca729fa9d4711ca70893', 'usr', 'selahattin@xs4all.nl', 'yes', 'no', '', '', 'n', '2016-08-04', '20:54:29', '2016-07-05', 'Unal', '', 'Selahattin', 'Hortensiastraat', '18', '5hoog', '1032CJ', 'Amsterdam', '062960228', '57a38fb579cc0.jpg', '57a30b5ad0736.pdf', '1960-05-16', 3000, 'WW', '2017-08-30', 'ICT', '50-100', 'ja', 'ja', 25, 'Het is tijd om te gaan zuipen																																																																																																																																																			', 'https://nl.linkedin.com/in/selahattinunal/nl', 'https://twitter.com/', 'https://www.facebook.com/'),
-(5, 'Franklin', '8bdc0a760490ca729fa9d4711ca70893', 'usr', 'frankieboy37@hotmail.com', 'yes', 'no', '', '', 'n', '2016-08-02', '12:35:55', '2016-07-06', 'Roos', '', 'Franklin', 'Watermolenstraat', '98', '', '1098bn', 'Amsterdam', '0629359610', 'Franklin.jpg', 'CV_Roos.pdf', '1973-06-15', 3200, 'WW', '2017-08-29', 'ICT', '100-500', 'ja', 'ja', 25, '	het is tijd om uit eten te gaan													', 'https://nl.linkedin.com/in/franklin-roos', 'https://twitter.com/', 'https://www.facebook.com/'),
-(6, 'balboa', '8bdc0a760490ca729fa9d4711ca70893', 'usr', 'balboadesus@hotmail.com', 'yes', 'no', '', '', 'n', '2016-08-04', '21:08:32', '2016-07-12', 'Dagama', 'Desus', 'Balboa', 'Columbusstraat', '28', '3hoog', '1778BT', 'schagen', '0206194483', '57a392cc69699.jpg', '57a09ca733be2.pdf', '1975-11-25', 3200, 'WW', '2017-08-25', 'ICT', '1-10', 'ja', 'ja', 35, '	Blablablabla																																														', 'https://nl.linkedin.com/in/selahattinunal/nl', 'https://twitter.com/', 'https://www.facebook.com/'),
+(2, 'blackliq', '8bdc0a760490ca729fa9d4711ca70893', 'usr', 'blachout@upcmail.nl', 'yes', 'no', '', '', 'n', '2016-08-05', '20:41:54', '2016-07-01', 'Hout', 'van', 'Thijs', 'W.v.Hembyzestraat', '17', '', '1067PM', 'Amsterdam', '0615579992', '57a4b090c9865.jpg', '57a4b06126106.txt', '1978-03-15', 3500, 'WW', '2017-08-25', 'ICT', '>500', 'ja', 'ja', 30, 'what the hell is going on																																																																																											', 'https://nl.linkedin.com/in/thijsvanhout/nl', 'https://twitter.com/', 'https://www.facebook.com/'),
+(3, 'Unal', '8bdc0a760490ca729fa9d4711ca70893', 'usr', 'selahattin@xs4all.nl', 'yes', 'no', '', '', 'n', '2016-08-05', '16:52:37', '2016-07-05', 'Unal', '', 'Selahattin', 'Hortensiastraat', '18', '5hoog', '1032CJ', 'Amsterdam', '062960228', '57a4acb2a6b87.jpg', '57a47484831d6.pdf', '1960-05-16', 3000, 'WW', '2017-08-30', 'ICT', '50-100', 'ja', 'ja', 25, 'foto en cv kunnen vervangen worden																																																																																																																																																																													', 'https://nl.linkedin.com/in/selahattinunal/nl', 'https://twitter.com/', 'https://www.facebook.com/'),
+(5, 'Franklin', '8bdc0a760490ca729fa9d4711ca70893', 'usr', 'frankieboy37@hotmail.com', 'yes', 'no', '', '', 'n', '2016-08-05', '20:41:42', '2016-07-06', 'Roos', '', 'Franklin', 'Watermolenstraat', '98', '', '1098bn', 'Amsterdam', '0629359610', 'Franklin.jpg', 'CV_Roos.pdf', '1973-06-15', 3200, 'WW', '2017-08-29', 'ICT', '100-500', 'ja', 'ja', 25, 'IK HEB HONGER !!!!!!																	', 'https://nl.linkedin.com/in/franklin-roos', 'https://twitter.com/', 'https://www.facebook.com/'),
+(6, 'balboa', '8bdc0a760490ca729fa9d4711ca70893', 'usr', 'balboadesus@hotmail.com', 'yes', 'no', '', '', 'n', '2016-08-05', '20:56:25', '2016-07-12', 'Dagama', 'Desus', 'Balboa', 'Columbusstraat', '28', '3hoog', '1778BT', 'schagen', '0206194483', '57a4e263b1eea.jpg', '57a46a3b05770.txt', '1975-11-25', 3200, 'WW', '2017-08-25', 'ICT', '1-10', 'ja', 'ja', 35, '	Blablablabla																																																																						', 'https://nl.linkedin.com/in/selahattinunal/nl', 'https://twitter.com/', 'https://www.facebook.com/'),
 (7, 'bart', '8bdc0a760490ca729fa9d4711ca70893', 'usr', 'bartkijlstragmail.com', 'yes', 'no', '', '', 'n', '2016-08-02', '12:34:54', '2016-08-01', 'Kijsltra', '', 'Bart', 'Muiderpoortstation', '35', '3hoog', '1092vw', 'Amsterdam', '0619874146', 'bart.jpg', '', '1958-08-10', 3400, 'WW', '0000-00-00', 'ICT', '', 'ja', 'ja', 35, '		', 'https://nl.linkedin.com/in/bartkijlstra', '', ''),
-(8, 'Ron', '8bdc0a760490ca729fa9d4711ca70893', 'usr', 'rdewit599@gmail.com', 'yes', 'no', '', '', 'n', '2016-08-04', '20:57:05', '2016-07-13', 'Wit', 'de', 'Ron', 'Hupsakeestraat', '525', '7hoog', '1107ZO', 'Amsterdam', '0645845457', '57a39063b4cd3.jpg', '57a39057db3ff.txt', '1974-04-14', 3300, 'WW', '2017-02-28', 'ICT', '', 'nee', 'nee', 15, '	Ik wil koffie				', '', '', '');
+(8, 'Ron', '8bdc0a760490ca729fa9d4711ca70893', 'usr', 'rdewit599@gmail.com', 'yes', 'no', '', '', 'n', '2016-08-05', '20:43:38', '2016-07-13', 'Wit', 'de', 'Ron', 'Hupsakeestraat', '525', '7hoog', '1107ZO', 'Amsterdam', '0645845457', '57a4c05648902.jpg', '57a39057db3ff.pdf', '1974-04-14', 3300, 'WW', '2017-02-28', 'ICT', '', 'nee', 'nee', 15, '	Ik wil koffie								', '', '', ''),
+(9, 'Elmar', '8bdc0a760490ca729fa9d4711ca70893', 'admin', 'elmar_ziet_@alles.nl', 'yes', 'no', '', '', 'y', '2016-08-05', '21:01:24', '2016-08-05', 'Geurts', '', 'Elmar', '', '', '', '', '', '', '', '', '0000-00-00', 0, '', '0000-00-00', 'ICT', '', '', '', 0, '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -407,7 +410,7 @@ CREATE TABLE IF NOT EXISTS `user_functie` (
   `user_id` int(5) NOT NULL,
   `functie_id` int(3) NOT NULL,
   `ervaring` int(2) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=118 DEFAULT CHARSET=utf8;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `user_functie`
@@ -416,19 +419,26 @@ CREATE TABLE IF NOT EXISTS `user_functie` (
 INSERT INTO `user_functie` (`user_functie_id`, `user_id`, `functie_id`, `ervaring`) VALUES
 (1, 1, 5, 3),
 (2, 1, 3, 5),
-(3, 2, 1, 0),
-(4, 2, 2, 0),
-(5, 2, 9, 0),
-(6, 3, 4, 0),
-(7, 3, 5, 0),
-(8, 3, 8, 0),
-(9, 2, 5, 0),
+(3, 2, 1, 7),
+(4, 2, 2, 8),
+(5, 2, 9, 4),
+(6, 3, 4, 8),
+(7, 3, 5, 8),
+(8, 3, 8, 5),
+(9, 2, 5, 5),
 (10, 5, 2, 3),
 (78, 5, 4, 4),
-(102, 6, 1, 0),
-(103, 6, 4, 0),
+(102, 6, 1, 5),
+(103, 6, 4, 2),
 (104, 7, 1, 0),
-(105, 7, 4, 0);
+(105, 7, 4, 0),
+(110, 6, 6, 5),
+(112, 6, 8, 6),
+(113, 6, 2, 7),
+(114, 6, 5, 7),
+(115, 3, 1, 5),
+(116, 3, 2, 8),
+(117, 5, 9, 6);
 
 -- --------------------------------------------------------
 
@@ -749,7 +759,7 @@ ALTER TABLE `mobiliteit`
 -- AUTO_INCREMENT voor een tabel `nav`
 --
 ALTER TABLE `nav`
-  MODIFY `nav_id` int(2) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
+  MODIFY `nav_id` int(2) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT voor een tabel `navadmin`
 --
@@ -769,7 +779,7 @@ ALTER TABLE `online`
 -- AUTO_INCREMENT voor een tabel `pages`
 --
 ALTER TABLE `pages`
-  MODIFY `page_id` int(2) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+  MODIFY `page_id` int(2) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT voor een tabel `regio`
 --
@@ -789,7 +799,7 @@ ALTER TABLE `sector`
 -- AUTO_INCREMENT voor een tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+  MODIFY `user_id` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT voor een tabel `user_bedrijf`
 --
@@ -799,7 +809,7 @@ ALTER TABLE `user_bedrijf`
 -- AUTO_INCREMENT voor een tabel `user_functie`
 --
 ALTER TABLE `user_functie`
-  MODIFY `user_functie_id` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=106;
+  MODIFY `user_functie_id` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=118;
 --
 -- AUTO_INCREMENT voor een tabel `user_regio`
 --

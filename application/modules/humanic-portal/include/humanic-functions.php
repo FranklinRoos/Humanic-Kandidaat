@@ -1139,7 +1139,7 @@ function handleKandidaatRegForm ()
                     echo "<label  for=\"foto\">Foto uploaden</label>";
                     echo "<div>";
                     
-                            if(isSet($_SESSION['foto']) && !isSet($_FILES['foto'])){
+                            if(isSet($_SESSION['foto'])){
                            // echo "<img class=\"col-sm-4\" id=\"myImg\" src=\"$imagepath"."$foto\" alt=\"your image\" width=80px height=80px style=\"margin: 5px;\"/>";
                                 echo "<img class=\"col-sm-4\" id=\"myImg\" src=\"$imagepath"."$foto\" alt=\"your image\" width=100px height=100px style=\"margin: 5px;\"/>";
                                 }

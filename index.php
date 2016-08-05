@@ -5,9 +5,9 @@ include("application/config/connect.php");
 include("application/config/default_functions.php");
 
 
-$pageNavId=1;
+$pageNavId=12;
 fHeader($pageNavId);//actief=$pageNavId);
-
+global $connection;
 // Alle navigatie functies zitten in application/config/default_functions.php
 
 /*if(!isSet($_SESSION['blad']))
@@ -19,15 +19,18 @@ if($_SESSION['blad']!=='index_page')
   $_SESSION['blad']='index_page';
 }*/
 
+if(!isSet($_SESSION["user_authorisatie"]))
+      {
+        navigatie($pageNavId);
+    }
+elseif(isSet($_SESSION["user_authorisatie"]) && $_SESSION["user_authorisatie"]=="admin" OR $_SESSION["user_authorisatie"]=="ptr")
 
-if(!isSet($_SESSION["user_authorisatie"]) OR  (isSet($_SESSION["user_authorisatie"]) && $_SESSION["user_authorisatie"] === "usr") &&  isSet($_SESSION["loginnaam"]))
-     {      
-       navigatie($pageNavId);    
-     }
-elseif(isSet($_SESSION["user_authorisatie"])&& $_SESSION["user_authorisatie"]=="admin" OR $_SESSION["user_authorisatie"]=="ptr")
          {
-           navigatieA($pageNavId);// zit in 
+           navigatieA($pageNavId);
          }
+
+           
+         
 $sql = mysqli_query($connection,"SELECT * FROM `pages` WHERE `page_nav_id`=$pageNavId  and `page_taal` = 'nl' and `page_show` ='y' ");
     if (mysqli_num_rows($sql)==0)   
       {

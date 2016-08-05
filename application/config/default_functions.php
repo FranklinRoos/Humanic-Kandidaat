@@ -1,5 +1,5 @@
 <?php
-function fHeader($pageNavId="1")
+function fHeader($pageNavId="12")
 {
     global $connection;
     
@@ -27,7 +27,6 @@ function fHeader($pageNavId="1")
         echo "<meta name=\"keywords\" content=\"".$content["page_keywords"]."\">";
     }
     echo "<meta name=\"author\" content=\"Franklin Roos, Thijs v Hout,Bart Kijlstra, Ron de Wit & Sellahatin\">";
-    echo "<title>Humanic IC</title>";
     //<!-- Bootstrap -->
     //echo "<link rel=\"stylesheet\" href=\"".$GLOBALS['path']."assets/css/bootstrap.min.css\" type=\"text/css\">";
     echo "<link rel=\"stylesheet\" href=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css\">";
@@ -172,8 +171,8 @@ function navigatie($pageNavId="1")
     echo "</a>";
     echo "<ul class=\"nav navbar-nav\">";
     // selecteer alles (voor de navigatie) voor de header en show=y 
-      if(!isSet($_SESSION["user_authorisatie"]) OR $_SESSION["user_authorisatie"] == 'usr'){
-        $sql = mysqli_query($connection, "SELECT * FROM `nav` where `nav_place`='header' AND `nav_auth`='usr' AND `nav_taal`='nl' AND `nav_show`='y' order by `volgorde` ");
+      if(!isSet($_SESSION["user_authorisatie"]) OR $_SESSION["user_authorisatie"] == 'elm'){
+        $sql = mysqli_query($connection, "SELECT * FROM `nav` where `nav_place`='header' AND `nav_auth`='elm' AND `nav_taal`='nl' AND `nav_show`='y' order by `volgorde` ");
      }
      else {
          $sql = mysqli_query($connection, "SELECT * FROM `nav` where `nav_place`='header' AND `nav_auth`='admin' AND `nav_taal`='nl' AND `nav_show`='y' order by `volgorde` ");

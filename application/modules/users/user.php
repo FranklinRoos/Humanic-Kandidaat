@@ -10,11 +10,11 @@ $pageNavId=50;
 fHeader($pageNavId);
 navigatieAdmin($pageNavId);
 
-if($_SESSION['blad']!=='user_page')    
+/* if($_SESSION['blad']!=='user_page')    
 {
   $_SESSION['blad']='user_page';
   $_SESSION['user_page']=0;
-}
+}*/
 
 
 echo"<div class=\"container\">";

@@ -31,19 +31,19 @@ function overzicht()
     $to = $_SESSION['user_page'] * 10 + 10; */
 
     
-    $users = mysqli_query($connection, "SELECT * FROM user ") or die(mysqli_error());// ik doe hier een call(query) naar de databse op alle users in de 'user'tabel
+    $users = mysqli_query($connection, "SELECT * FROM user WHERE `user_authorisatie`= 'usr'") or die(mysqli_error());// ik doe hier een call(query) naar de databse op alle users in de 'user'tabel
     $count_users = mysqli_num_rows($users);// hier tel ik vervolgens hoeveel users de query heeft opgeleverd
     //print "$count_users<br>";
     //print "$to<br>";
-    $objecten = mysqli_query($connection, "SELECT * FROM user LIMIT $start,10") or die(mysqli_error());
+    $objecten = mysqli_query($connection, "SELECT * FROM user  WHERE `user_authorisatie`= 'usr' LIMIT $start,10") or die(mysqli_error());
     $count_Limit_users = mysqli_num_rows($objecten);
     
     if (mysqli_num_rows($objecten) == 0) 
     {
         die("<i>Nog geen users aanwezig !</i>");
     }
-        //$GLOBALS['path']="http://www.pieterspierenburg.com/psinfo/";
-        $GLOBALS['path']="http://localhost:7777/humanic/";
+     
+        $GLOBALS['path']="http://localhost:7777/humanic_queries/";
         global $path;
      /*   echo "<h3 align=center>Overzicht Geregistreerde Gebruikers</h3>";
         echo "<table id=\"edit\" cellpadding=\"3\" cellspacing=\"3\" >";
@@ -107,7 +107,7 @@ function overzicht()
         echo "<th width=\"50\" align=\"left\">Sector-afkomstig</th>";
         echo "<th width=\"50\" align=\"left\">Bedrijf-grootte</th>";
         echo "<th width=\"50\" align=\"left\">Rijbewijs</th>";
-        
+        echo "<th width=\"50\" align=\"left\">Auto</th>";
         
         
         echo "</tr>";
@@ -117,7 +117,7 @@ function overzicht()
             $imagepath=$GLOBALS['path']."assets/images/";
             echo "<tr>";
            // echo "<td width=\"50\" align=\"left\"><a href=\"".$_SERVER['PHP_SELF']."?user_id=".$bericht->user_id."\">edit</a></td>";
-            echo "<td>".utf8_encode("<img width=\"70\" height=\"80\" style=\"margin: 5px;\" src=\"$imagepath").utf8_encode($bericht->foto).".jpg\" /></td>";
+            echo "<td>".utf8_encode("<img width=\"70\" height=\"80\" style=\"margin: 5px;\" src=\"$imagepath").utf8_encode($bericht->foto)."\" /></td>";
             echo "<td>".utf8_encode($bericht->user_sinds)."</td>";
             echo "<td>".utf8_encode($bericht->achternaam)."</td>";
             echo "<td>".utf8_encode($bericht->tussenvoegsel)."</td>";
@@ -132,8 +132,8 @@ function overzicht()
             echo "<td>".utf8_encode($bericht->uitkering_geldig_tot)."</td>";
             echo "<td>".utf8_encode($bericht->user_sector)."</td>";
             echo "<td>".utf8_encode($bericht->user_bedrijf_grootte)."</td>";
-            echo "<td>".utf8_encode($bericht->user_rijbewijs)."</td>";
-            
+            echo "<td>".utf8_encode($bericht->rijbewijs)."</td>";
+            echo "<td>".utf8_encode($bericht->auto)."</td>";
             
             echo "</tr>";
         }

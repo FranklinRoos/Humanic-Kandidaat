@@ -13,11 +13,11 @@ if (isset($_SESSION["suc6login"]) &&  isSet($_SESSION['loginnaam'])) //deze info
 
     unset($_SESSION["suc6login"]);
         // inloggen
-    $pageNavId=2;
+    $pageNavId=12;
     fHeader($pageNavId);
     //navigatie($pageNavId);
     
-    if($_SESSION["user_authorisatie"]=="usr")
+    if($_SESSION["user_authorisatie"]=="admin")
      { 
         
          //hieronder wordt bepaald hoe de datum uit de db($_SESSION['laatsgezien'])gepresenteerd zal worden
@@ -27,7 +27,7 @@ if (isset($_SESSION["suc6login"]) &&  isSet($_SESSION['loginnaam'])) //deze info
          $datum = ($datesplit[2]*1)."-".$maanden[$datesplit[1]-1]."-".$datesplit[0];//de index bij $maanden[$datesplit[1] wordt met 1 verminderd omdat de array '$maanden' met 0 begint
          
         
-        navigatie($pageNavId);
+        navigatieA($pageNavId);
         echo "<div class=\"container\">";
         echo "<h1>Welkom <div class=\"welkom\">".ucfirst($_SESSION["loginnaam"])."</div>  je bent ingelogd!</h1><br/>";
         echo "<h4 class=\"regbericht\">Maak je keuze via de navigatieknoppen boven, ";

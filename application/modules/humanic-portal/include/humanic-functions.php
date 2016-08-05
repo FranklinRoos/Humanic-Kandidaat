@@ -115,10 +115,6 @@ function showForm()
         echo "</table>";
         echo "<input type='submit' name='submit' value='Login'>";
         echo "</form><br/>";
-        echo "<div class=\"reg\">";
-             echo "Heeft u zich nog niet geregistreerd?<br/>";
-            echo "Dat kan <a href=\"register.php\"><mark>hier.</mark></a><br/><br/>";
-        echo "</div>";
         echo "</section>";
         //echo "<a href=\"nwPasw.php\">Bent u uw wachtwoord vergeten ?</a>";
     }

@@ -7,14 +7,8 @@ include ("../FCKeditor/fckeditor.php");
 include("userFunction.php");
 
 $pageNavId=50;
-fHeader($pageNavId);
+fHeaderB($pageNavId);
 navigatieAdmin($pageNavId);
-
-/* if($_SESSION['blad']!=='user_page')    
-{
-  $_SESSION['blad']='user_page';
-  $_SESSION['user_page']=0;
-}*/
 
 
 echo"<div class=\"container\">";

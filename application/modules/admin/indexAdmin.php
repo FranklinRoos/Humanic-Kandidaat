@@ -25,9 +25,9 @@ if(isset($_SESSION['loginnaam']))
     {
     navigatieAdmin();
     echo "<br><br><br>";
-    echo "<h2>U bent ingelogd als Administrator!<br />Ga verder door een keuze te maken uit de navigatie.</h2>";
-    echo "<input type =\"button\" onclick=\"inofuitLoggen(0)\" value=\"Uitloggen\" class=\"btn\""
-        . " style=\"padding: 2px 20px; margin-top: -2px; border: 1px solid rgba(0, 0, 0, 0.33);\"></button>";
+    echo "<h3>Dag Elmar, je kan hier je informatie honger gaan stillen.</h3>";
+   /* echo "<input type =\"button\" onclick=\"inofuitLoggen(0)\" value=\"Uitloggen\" class=\"btn\""
+        . " style=\"padding: 2px 20px; margin-top: -2px; border: 1px solid rgba(0, 0, 0, 0.33);\"></button>";*/
     fFooter();
     }
     if($_SESSION["user_authorisatie"]=='usr')

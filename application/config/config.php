@@ -6,9 +6,9 @@ $user= "admin";
 $pass= "123";
 
 global $path;
-$GLOBALS['path']="http://localhost:7777/humanic/";
-$cvpath="http://localhost:7777/humanic/assets/user-cv/";
-$imagepath=$GLOBALS['path']."assets/images/";
+$GLOBALS['path']="http://localhost/Humanic-Elmar/";
+$cvpath="http://localhost/HumanicKandidaat/humanic/assets/cv/";
+$imagepath="http://localhost/HumanicKandidaat/humanic/assets/images/";
 $moviepath=$GLOBALS['path']."assets/movies/";
 
 

@@ -14,7 +14,7 @@ if (isset($_SESSION["suc6login"]) &&  isSet($_SESSION['loginnaam'])) //deze info
     unset($_SESSION["suc6login"]);
         // inloggen
     $pageNavId=12;
-    fHeader($pageNavId);
+   fHeader($pageNavId);
     //navigatie($pageNavId);
     
     if($_SESSION["user_authorisatie"]=="admin")
@@ -29,22 +29,25 @@ if (isset($_SESSION["suc6login"]) &&  isSet($_SESSION['loginnaam'])) //deze info
         
         navigatieA($pageNavId);
         echo "<div class=\"container\">";
-        echo "<h1>Welkom <div class=\"welkom\">".ucfirst($_SESSION["loginnaam"])."</div>  je bent ingelogd!</h1><br/>";
-        echo "<h4 class=\"regbericht\">Maak je keuze via de navigatieknoppen boven, ";
-        echo "je was hier voor het laatst op ".$datum." om ".$_SESSION['laatsgezienTijdstip']."</h4>";
+        echo "<h3 class=\"welkom\">Welkom <div class=\"welkom\">".ucfirst($_SESSION["loginnaam"])."</div></h3><br/>";
+        echo "<h4 class=\"welkom\">Je kan je informatie honger hier gaan stillen</h4> ";
+        //echo "je was hier voor het laatst op ".$datum." om ".$_SESSION['laatsgezienTijdstip']."</h4>";
        
         //De naam met een hoofdletter laten beginnen bij de presentatie 
         //echo "<h4 class=\"regbericht\">".ucfirst($_SESSION["loginnaam"])." ,je was hier voor het laatst op ".$datum." om ".$_SESSION['laatsgezienTijdstip']."</h4>";
         
      }
-
-      else
+     else
          {
              echo "<script type=\"text/javascript\">
            window.location = \"".$GLOBALS['path']."/application/modules/admin/indexAdmin.php\"
             </script>";
          }
-            
+         
+         
+      /* mysqli_query($connection, "INSERT INTO `online`(`user_id`) // dit was experimenteel , de tabel 'online' kan dan ook uit de database
+		VALUES ('".$_SESSION["user_id"]."')")
+		or die(mysqli_error());   */     
           
  }        
   else
@@ -86,27 +89,12 @@ if (isset($_SESSION["suc6login"]) &&  isSet($_SESSION['loginnaam'])) //deze info
                  }
                elseif(!isSet($_POST["submit"]) &&  isSet($_SESSION['loginnaam']))//als je reeds ingelogd bent en de brouwser verniewd, zou je anders in een loop blijven
                {
-                    if($_SESSION['user-form'] ==='no')
-                        {
-                            /* $sql = mysqli_query($connection, "SELECT * FROM `user` where `user_form-activ`='no' and `user_activ` ='yes'");                    
-                                if (mysqli_num_rows($sql)==0)   
-                                    {
-                                        die ("Je hebt geen gegevens tot je beschikking");
-                                     }
-
-                                        while ($content = mysqli_fetch_assoc($sql)) 
-                                             {
-                                                     $_SESSION["suc6login"] = "suc6login";*/
+                   // if($_SESSION['user-form'] ==='no')
+                      //  {
                                                 echo "<script type=\"text/javascript\">
-                                                                window.location = \"".$GLOBALS['path']."/application/modules/humanic-portal/kandidaat.php\"
+                                                                window.location = \"".$GLOBALS['path']."/application/modules/users/user.php\"
                                                         </script>";     
-                                        // }
                        // }
-                                 /*    $_SESSION["suc6login"] = "suc6login";
-                                     echo "<script type=\"text/javascript\">
-                                    window.location = \"".$GLOBALS['path']."/application/modules/humanic-portal/login.php\"
-                                     </script>"; */
-                        }
                  }
               else
                  {    

@@ -43,78 +43,38 @@ function overzicht()
         die("<i>Nog geen users aanwezig !</i>");
     }
      
-        $GLOBALS['path']="http://localhost:7777/humanic_queries/";
+        global $imagepath;
         global $path;
-     /*   echo "<h3 align=center>Overzicht Geregistreerde Gebruikers</h3>";
-        echo "<table id=\"edit\" cellpadding=\"3\" cellspacing=\"3\" >";
-        echo "<tr>";
-        echo "<th width=\"50\" align=\"left\">Edit</th>";
-        echo "<th width=\"50\" align=\"left\">User inlognaam</th>";
-        //echo "<th width=\"50\" align=\"left\">User wachtwoord</th>";
-        echo "<th width=\"50\" align=\"left\">User authorisatie</th>";
-        echo "<th width=\"50\" align=\"left\">User Activ</th>";
-        echo "<th width=\"50\" align=\"left\">Geregistreerd sinds</th>";
-        echo "<th width=\"90\" align=\"left\">Datum laats gezien</th>";
-        echo "<th width=\"50\" align=\"left\">Tijdstip laats gezien</th>";
-        echo "</tr>";
-
-	while ($bericht = mysqli_fetch_object($objecten)) 
-        {
-            echo "<tr>";
-            echo "<td width=\"50\" align=\"left\"><a href=\"".$_SERVER['PHP_SELF']."?user_id=".$bericht->user_id."\">edit</a></td>";
-            echo "<td>".utf8_encode($bericht->user_inlognaam)."</td>";
-            //echo "<td>".utf8_encode($bericht->user_wachtwoord)."</td>";
-            echo "<td>".utf8_encode($bericht->user_authorisatie)."</td>";
-            echo "<td>".utf8_encode($bericht->user_activ)."</td>";
-            echo "<td>".utf8_encode($bericht->user_sinds)."</td>";
-            echo "<td>".utf8_encode($bericht->datum_gezien)."</td>";
-            echo "<td>".utf8_encode($bericht->tijdstip_gezien)."</td>";
-            
-            echo "</tr>";
-        }
-
-        echo "</table>";
-        echo "<table>";
-        echo "<tr><td colspan='3'></td>";
-        //echo "<tr><td>".($prev>=0?"<a href=user.php?user_page=".$prev. "> prev </a>":"prev")."</td>";
-        //echo "<td>$from...$to</td>";
-        //echo "<td>".(mysqli_num_rows($objecten)>9?"<a href=user.php?user_page=" .$next. "> next </a>":"next")."</td>";
-
-        echo "<tr><td>".($prev>=0?"<a href=user.php?user_page=".$prev. "> prev </a>":"prev")."</td>";
-        echo "<td>$from...$to</td>";
-         echo "<td>".(($count_users - $to)> 0?"<a href=user.php?user_page=" .$next. "> next </a>":"next")."</td>"; 
-        echo "</tr>";
-        echo "</table>"; */
         
         //donderdag 7 juli 2016 toegevoegd
           echo "<h3 style=\"text-align:center; color:black;\">Overzicht Geregistreerde kandidaten</h3>";
-        echo "<table id=\"edit\" cellpadding=\"3\" cellspacing=\"3\" >";
+        echo "<table class=\"table-condensed\" id=\"edit\" cellpadding=\"3\" cellspacing=\"3\" >";
         echo "<tr>";
         //echo "<th width=\"50\" align=\"left\">Edit</th>";
-        echo "<th width=\"50\" align=\"left\">Pasfoto</th>";
-        echo "<th width=\"50\" align=\"left\">Geregistreerd sinds</th>";        
-        echo "<th width=\"50\" align=\"left\">Achternaam</th>";
-        echo "<th width=\"50\" align=\"left\">Tussenvoegsel</th>";
-        echo "<th width=\"50\" align=\"left\">Voornaam</th>";
-        echo "<th width=\"50\" align=\"left\">Straat</th>";
-        echo "<th width=\"50\" align=\"left\">Huisnummer</th>";
-        echo "<th width=\"50\" align=\"left\">Postcode</th>";
-        echo "<th width=\"50\" align=\"left\">Plaats</th>";
-        echo "<th width=\"50\" align=\"left\">Telefoon</th>";
-        echo "<th width=\"50\" align=\"left\">Geb.Datum</th>";
-        echo "<th width=\"50\" align=\"left\">Salaris Indicatie</th>";
-        echo "<th width=\"50\" align=\"left\">uitkering-geldig-tot</th>";
-        echo "<th width=\"50\" align=\"left\">Sector-afkomstig</th>";
-        echo "<th width=\"50\" align=\"left\">Bedrijf-grootte</th>";
-        echo "<th width=\"50\" align=\"left\">Rijbewijs</th>";
-        echo "<th width=\"50\" align=\"left\">Auto</th>";
+        echo "<th  align=\"left\">Pasfoto</th>";
+        echo "<th  align=\"left\">Geregistreerd sinds</th>";        
+        echo "<th  align=\"left\">Achternaam</th>";
+        echo "<th  align=\"left\">Tussenvoegsel</th>";
+        echo "<th  align=\"left\">Voornaam</th>";
+        echo "<th  align=\"left\">Straat</th>";
+        echo "<th  align=\"left\">Huisnummer</th>";
+        echo "<th  align=\"left\">Postcode</th>";
+        echo "<th  align=\"left\">Plaats</th>";
+        echo "<th  align=\"left\">Telefoon</th>";
+        echo "<th  align=\"left\">Geb.Datum</th>";
+        echo "<th  align=\"left\">Salaris Indicatie</th>";
+        echo "<th  align=\"left\">uitkering-geldig-tot</th>";
+        echo "<th  align=\"left\">Sector-afkomstig</th>";
+        echo "<th  align=\"left\">Bedrijf-grootte</th>";
+        echo "<th  align=\"left\">Rijbewijs</th>";
+        echo "<th  align=\"left\">Auto</th>";
         
         
         echo "</tr>";
 
 	while ($bericht = mysqli_fetch_object($objecten)) 
         {
-            $imagepath=$GLOBALS['path']."assets/images/";
+            //$imagepath=$GLOBALS['path']."assets/images/";
             echo "<tr>";
            // echo "<td width=\"50\" align=\"left\"><a href=\"".$_SERVER['PHP_SELF']."?user_id=".$bericht->user_id."\">edit</a></td>";
             echo "<td>".utf8_encode("<img width=\"70\" height=\"80\" style=\"margin: 5px;\" src=\"$imagepath").utf8_encode($bericht->foto)."\" /></td>";

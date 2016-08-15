@@ -10,48 +10,52 @@ include("../../config/default_functions.php");
 include("include/humanic-functions.php");
 include("include/formValidatie.php");
 
-if(!isSet($_SESSION['loginnaam'])) {
+$pageNavId=6;
+
+if(!isSet($_SESSION['loginnaam']) OR $_SESSION['user_authorisatie']=='usr') {
                     echo "<script type=\"text/javascript\">
                                     window.location = \"".$GLOBALS['path']."/application/modules/admin/indexAdmin.php\"
                                      </script>";
 }
 
-/*if(!isSet($_SESSION['blad']))
+ fHeader($pageNavId);
+navigatie();
+
+if(!isSet($_SESSION['blad']))
   {
-    $_SESSION['blad']='kandidaat_page';
+    $_SESSION['blad']='kandidaat_blad';
     }    
-if(isSet($_SESSION['blad'])&& $_SESSION['blad'] !=='kandidaat_page')    
+if(isSet($_SESSION['blad'])&& $_SESSION['blad'] !=='kandidaat_blad')    
 {
-  $_SESSION['blad']='kandidaat_page';
-}*/
+  $_SESSION['blad']='kandidaat_blad';
+}
 
- $pageNavId=6;
- fHeader($pageNavId);//actief=$pageNavId);
-
- 
- if(!isSet($_SESSION['user_authorisatie']) OR $_SESSION['user_authorisatie']=='usr')
- {
-     navigatie($pageNavId);
- }
- 
-/* elseif(isSet($_SESSION["user_authorisatie"])&& $_SESSION["user_authorisatie"]=="admin" OR $_SESSION["user_authorisatie"]=="ptr")
-         {
-           navigatieA($pageNavId);
-         }*/
- 
-/*
-if (!isset($_SESSION["loginnaam"]))
-   {
-    echo "<br /><br /><br /><h2 align=center>Dit is de website van en over Pieter Spierenburg</h2>";
-    echo "<br /><h3>U dient eerst<a href=\"login.php\"> ingelogd</a> te zijn</h3>";
     
-} 
- else   
-  
-{ */
-global $connection;
+    if (isSet($_GET['user_id']))
+        {
+            $_SESSION['kandidaat_id'] = $_GET['user_id'];
+            $knd_id = $_SESSION['kandidaat_id'];//echo "kandidaat-id= '".$knd_id."'";
+        }
+    if(isSet ($_SESSION['kandidaat_id']) && !isSet($_GET['user_id']))
+        {
+            $_GET['user_id'] = $_SESSION['kandidaat_id'];
+            $knd_id = $_GET['user_id'];
+        } 
+        
+        maakSessieVariabelen();    
+
+/*$sql = mysqli_query($connection, "SELECT * FROM user `user_id` = '".$knd_id."'");
+    if ($sql){
+        while ($row = mysqli_fetch_assoc($sql)) {
+            $_SESSION['kandidaatLogin'] =  $row['user_inlognaam'];
+        }
+    }
+    else {
+        echo "fout";
+    };*/
+
 $functieArray = array();
-$sql = mysqli_query($connection, "SELECT * FROM user_functie WHERE `user_id` = '".$_SESSION['user_id']."'");
+$sql = mysqli_query($connection, "SELECT * FROM user_functie WHERE `user_id` = '".$knd_id."'");
     if ($sql){
         while ($row = mysqli_fetch_assoc($sql)) {
             $newArray = array($row['functie_id'], $row['ervaring']);
@@ -61,21 +65,50 @@ $sql = mysqli_query($connection, "SELECT * FROM user_functie WHERE `user_id` = '
     else {
         echo "fout";
     };
-//vullen sectorArray    
-$sectorArray = array();
-    $sql = mysqli_query($connection, "SELECT * FROM user_sector WHERE `user_id` = '".$_SESSION['user_id']."'");
+    
+     
+$gewensteSectorArray = array();   
+    $sql = mysqli_query($connection, "SELECT * FROM gewenste_sector WHERE `user_id` = '".$knd_id."'");
     if ($sql){
         while ($row = mysqli_fetch_assoc($sql)) {
             $newArray = array($row['sector_id']);
+            array_push($gewensteSectorArray, $newArray);
+        }
+    }
+    else {
+        echo "fout";
+    };    
+     
+    
+//vullen sectorArray    
+$sectorArray = array();
+    $sql = mysqli_query($connection, "SELECT * FROM user_sector WHERE `user_id` = '".$knd_id."'");
+    if ($sql){
+        while ($row = mysqli_fetch_assoc($sql)) {
+            $newArray = array($row['sector_id'], $row['jaren']);
             array_push($sectorArray, $newArray);
         }
     }
     else {
         echo "fout";
     };
+       
+//vullen bedrijfGewerkt Array
+$bedrijfGewerktArray = array();
+$sql = mysqli_query($connection, "SELECT * FROM bedrijfgewerkt WHERE `user_id` = '".$knd_id."'");
+    if ($sql){
+        while ($row = mysqli_fetch_assoc($sql)) {
+            $newArray = array($row['bedrijf_id']);
+            array_push($bedrijfGewerktArray, $newArray);
+        }
+    }
+    else {
+        echo "fout";
+    };      
+    
 //vullen bedrijf Array    
 $bedrijfArray = array();
-    $sql = mysqli_query($connection, "SELECT * FROM user_bedrijf WHERE `user_id` = '".$_SESSION['user_id']."'");
+    $sql = mysqli_query($connection, "SELECT * FROM user_bedrijf WHERE `user_id` = '".$knd_id."'");
     if ($sql){
         while ($row = mysqli_fetch_assoc($sql)) {
             $newArray = array($row['bedrijf_id']);
@@ -87,7 +120,7 @@ $bedrijfArray = array();
     };
 // vullen regio array    
 $regioArray = array();
-    $sql = mysqli_query($connection, "SELECT * FROM user_regio WHERE `user_id` = '".$_SESSION['user_id']."'");
+    $sql = mysqli_query($connection, "SELECT * FROM user_regio WHERE `user_id` = '".$knd_id."'");
     if ($sql){
         while ($row = mysqli_fetch_assoc($sql)) {
             $newArray = array($row['regio_id']);
@@ -97,6 +130,9 @@ $regioArray = array();
     else {
         echo "fout";
     };
+    
+    
+    
 
 if(!isSet($_POST['submit']))
 {

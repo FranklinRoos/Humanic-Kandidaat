@@ -115,10 +115,6 @@ function showForm()
         echo "</table>";
         echo "<input type='submit' name='submit' value='Login'>";
         echo "</form><br/>";
-        echo "<div class=\"reg\">";
-             echo "Heeft u zich nog niet geregistreerd?<br/>";
-            echo "Dat kan <a href=\"register.php\"><mark>hier.</mark></a><br/><br/>";
-        echo "</div>";
         echo "</section>";
         //echo "<a href=\"nwPasw.php\">Bent u uw wachtwoord vergeten ?</a>";
     }
@@ -132,121 +128,131 @@ function handleForm()
         {
             $_SESSION["tellerInloggen"]=0;
         }
-       /* if (!isSet($_COOKIE['laatsteKeer']))//als de cookoie niet bestaat,wordt die nu gemaakt
-        {
-            $m_int=date("n")-1;
-            $m_name=array("januari","februari","maart","april","mei","juni","juli","augustus","september","oktober","november","december");
-            $month=$m_name[$m_int];
-            $datum=date("d ").$month.date(" Y")." om ".date("H:i")." uur";
-            $_COOKIE['laatsteKeer']= $datum;
-        }*/
+
         if ($_POST['login']!="")
         {   // vraag het correcte login op
            if ($_POST['passwd']!="")
             {   // vraag het correcte wachtwoord en de authorisatie op 
                 
                 $auth = getAuthorisatie(strtolower($_POST['login']));//de auhtorisatie wordt hier opgevraagd
-                $correct_passwd = trim(getPassword($_POST['login']));//hier wordt het ww behorende bij de loginnaam opgevraagd
-                if (md5(trim($_POST['passwd']))==trim($correct_passwd))//hier wordt het ww behorende bij de loginnaam vergeleken met het opgegeven ww
-                  {
+
+                if($auth != 'admin')
+                    {
+                        echo "<script type=\"text/javascript\">
+                                    window.location = \"".$GLOBALS['path']."/application/modules/admin/indexAdmin.php\"
+                                </script>";                   
+                    
+                    }
+                else
+                {
+                       $correct_passwd = trim(getPassword($_POST['login']));//hier wordt het ww behorende bij de loginnaam opgevraagd
+                      if (md5(trim($_POST['passwd']))==trim($correct_passwd))//hier wordt het ww behorende bij de loginnaam vergeleken met het opgegeven ww
+                          {
+
+                            $sql2 = mysqli_query($connection,"SELECT * FROM `user` WHERE `user_inlognaam`='".$_POST["login"]."' AND `user_authorisatie`= 'admin' AND `user_activ`='yes'");
+                                           // $sql2 = mysqli_query($connection,"SELECT * FROM `user` WHERE `user_inlognaam`='".$_POST["login"]."' AND `user_activ`='yes'");
                       
-                       $sql2 = mysqli_query($connection,"SELECT * FROM `user` WHERE `user_inlognaam`='".$_POST["login"]."' AND `user_activ`='yes'");
-                      
-                        if (mysqli_num_rows($sql2)==0)  
-                            {
-                             die ("U bent nog niet geregistreerd,of uw registratite is nog niet voltooid  ");
+                                            if (mysqli_num_rows($sql2)==0)  
+                                                    {
+                                                            die ("U bent nog niet geregistreerd,of uw registratite is nog niet voltooid  ");
                             
-                            }
-                       while ($row = mysqli_fetch_assoc($sql2))//de login procedure is succesvol doorlopen,dus kunnen de sessie-variabelen nu gemaakt worden
-                         {
-                             $userid = $row['user_id'];
-                             $_SESSION["user_id"] = $userid;
-                             $_SESSION['user-form'] = $row['user_form-activ'];
-                             $_SESSION['passwd'] = md5(trim($_POST['passwd']));
-                             $_SESSION['email'] = $row['user_email'];
-			     date_default_timezone_set("Europe/Amsterdam");
-                             $_SESSION['user_sinds'] = $row['user_sinds'];
-                             $_SESSION['current_date'] = date("y-m-d");
-                             $_SESSION['current_tijdstip'] = date("H:i:s");
-                             if(!isSet($row['datum_gezien']))//dus als het aacount de eerste keer na registratie en activataie gebruikt word,
-                               {
-                                 $laatsgezien = $_SESSION['current_date']; // krijgt $laatsgezien de huidige datum(current_date)                           
-                               }
-                             else 
-                                 {
-                                   $laatsgezien = $row['datum_gezien'];//anders de opgeslagen datum uit de db
-                                 }
-                            if(!isSet($row['tijdstip_gezien']))//dus als het account de eerste keer na registratie en activatie gebruikt word,
-                               {
-                                 $laatsgezienTijdstip = $_SESSION['current_tijdstip'];//krijgt laatsgezienTijdstip het huidige tijdstip(current_tijdstip) 
-                               }
-                            else 
-                                {
-                                  $laatsgezienTijdstip = $row['tijdstip_gezien'];//en anders het opgeslagen tijdstip uit de db
-                                }
-                             //Informatie uit de user tabel
-                             maakSessieVariabelen();
-                             $_SESSION['laatsgezien'] = $laatsgezien;
-                             $_SESSION['laatsgezienTijdstip'] = $laatsgezienTijdstip;
-                           
-                             $_SESSION['onlineIP'] = $_SERVER['REMOTE_ADDR'];                             
-                             $_SESSION["user_authorisatie"] = $auth;
-                             $_SESSION["loginnaam"] = $_POST["login"];
-                             //$_SESSION["password"] = md5(trim($_POST["passwd"]));
-                             $_SESSION["suc6login"] = "suc6login";
-                             //De kolommen 'datum_gezien' , 'tijdstip_gezien' en 'user_online' van de ingelogde user worden bijgewerkt
-                               $sql3 = mysqli_query($connection, "UPDATE `user` SET
+                                                    }
+                                            while ($row = mysqli_fetch_assoc($sql2))//de login procedure is succesvol doorlopen,dus kunnen de sessie-variabelen nu gemaakt worden
+                                                    {
+                                                            $userid = $row['user_id'];
+                                                            $_SESSION["user_id"] = $userid;
+                                                            $_SESSION['user-form'] = $row['user_form-activ'];
+                                                            $_SESSION['passwd'] = md5(trim($_POST['passwd']));
+                                                            $_SESSION['email'] = $row['user_email'];
+                                                            date_default_timezone_set("Europe/Amsterdam");
+                                                            $_SESSION['user_sinds'] = $row['user_sinds'];
+                                                            $_SESSION['current_date'] = date("y-m-d");
+                                                            $_SESSION['current_tijdstip'] = date("H:i:s");
+                                                             if(!isSet($row['datum_gezien']))//dus als het aacount de eerste keer na registratie en activataie gebruikt word,
+                                                                {
+                                                                    $laatsgezien = $_SESSION['current_date']; // krijgt $laatsgezien de huidige datum(current_date)                           
+                                                                }
+                                                            else 
+                                                                {
+                                                                    $laatsgezien = $row['datum_gezien'];//anders de opgeslagen datum uit de db
+                                                                }
+                                                            if(!isSet($row['tijdstip_gezien']))//dus als het account de eerste keer na registratie en activatie gebruikt word,
+                                                                {
+                                                                    $laatsgezienTijdstip = $_SESSION['current_tijdstip'];//krijgt laatsgezienTijdstip het huidige tijdstip(current_tijdstip) 
+                                                                }
+                                                            else 
+                                                                {
+                                                                    $laatsgezienTijdstip = $row['tijdstip_gezien'];//en anders het opgeslagen tijdstip uit de db
+                                                                }
+                                                                    //Informatie uit de user tabel
+                                                    }                      // maakSessieVariabelen();
+                                                            $_SESSION['laatsgezien'] = $laatsgezien;
+                                                            $_SESSION['laatsgezienTijdstip'] = $laatsgezienTijdstip;                  
+                                                            $_SESSION['onlineIP'] = $_SERVER['REMOTE_ADDR'];                             
+                                                            $_SESSION["user_authorisatie"] = $auth;
+                                                            $_SESSION["loginnaam"] = $_POST["login"];
+                                                            $_SESSION["suc6login"] = "suc6login";
+                                                    //De kolommen 'datum_gezien' , 'tijdstip_gezien' en 'user_online' van de ingelogde user worden bijgewerkt
+                                                        $sql3 = mysqli_query($connection, "UPDATE `user` SET
 		                         `user_online` = 'y', `datum_gezien` = '".$_SESSION['current_date']."', `tijdstip_gezien`= '".$_SESSION['current_tijdstip']."'                      
 		                         WHERE `user_id` = '".$_SESSION["user_id"]."'")
 		                         or die(mysqli_error());
-                                      $useronline = $row['user_online'];
-                                      $_SESSION['useronline'] = $useronline;
-                             
+                                                         $useronline = $row['user_online'];
+                                                        $_SESSION['useronline'] = $useronline;
+                                                        
+                                             //Terug naar het logon.php script  
+                                                 echo "<script type=\"text/javascript\">
+                                                window.location = \"".$GLOBALS['path']."/application/modules/humanic-portal/login.php\"
+                                                </script>"; 
+                                                   
             
-                             //onlineLog();//Met deze functie(in application/modules/psinfoportal/include/onlineFunctions.php) 
-                                           //de tabel 'online' in de database updaten
-                             
-                           //Terug naar het logon.php script  
-                          echo "<script type=\"text/javascript\">
-                           window.location = \"".$GLOBALS['path']."/application/modules/humanic-portal/login.php\"
-                           </script>";  
-              
-                        $sql = mysqli_query($connection, "SELECT * FROM `pages` WHERE `page_nav_id`=$pageNavId and `page_show` ='y'");
-                        echo "<div class=\"container\">";
-                       if (mysqli_num_rows($sql)==0)   
-                          {
-                            die ("Je hebt geen gegevens tot je beschikking");
-                           }
-                           while ($content = mysqlì_fetch_assoc($sql)) 
-                             {
-                               echo "<h1>".$content["page_title"]."</h1>";
-                               echo "<br /><p>";
-                               echo utf8_encode($content["page_content"]);
-                               echo "<br /><p>";
-                              }
-                        echo "</div>";
-                      }
+                                                    //onlineLog();//Met deze functie(in application/modules/psinfoportal/include/onlineFunctions.php) 
+                                                    //de tabel 'online' in de database updaten
+                                                // $pageNavId = 12;
+                                                $sql = mysqli_query($connection, "SELECT * FROM `pages` WHERE `page_nav_id`= $pageNavId and `page_show` ='y'");
+                                                echo "<div class=\"container\">";
+                                                if (mysqli_num_rows($sql)==0)   
+                                                    {
+                                                        die ("Je hebt geen gegevens tot je beschikking");
+                                                    }
+                                                while ($content = mysqlì_fetch_assoc($sql)) 
+                                                    {
+                                                        echo "<h1>".$content["page_title"]."</h1>";
+                                                        echo "<br /><p>";
+                                                        echo utf8_encode($content["page_content"]);
+                                                        echo "<br /><p>";
+                                                    }
+                                                echo "</div>";
+                                                                       
+                          }
                       //session_unset();;
                                     
-                }  
+                }
+         
+                 if($auth == 'usr')
+                     {
+                             echo "<script type=\"text/javascript\">
+                                    window.location = \"".$GLOBALS['path']."/application/modules/admin/indexAdmin.php\"
+                                     </script>"; 
+                        }
                  else
                  {
                     echo "<b>Het systeem kon u niet inloggen, probeer het nogmaals!</b><br>";
                     $_SESSION["tellerInloggen"]++;
                     if ($_SESSION["tellerInloggen"]<4)
-                    {
-                    showForm();
-                    }
+                        {
+                            showForm();
+                        }
                     else 
-                    {
-                    echo "<b>Volgens geruchten mag u maar 3 keer inloggen!</b><br>";
+                        {
+                            echo "<b>Volgens geruchten mag u maar 3 keer inloggen!</b><br>";
+                        }
                     }
-                 }
-            }
+              }
              else
-            {  echo "<b>U moet wel een echt wachtwoord invullen!</b><br>";
-                showForm();
-            } 
+                    {       echo "<b>U moet wel een echt wachtwoord invullen!</b><br>";
+                            showForm();
+                    } 
         }   
          else
             {  
@@ -258,9 +264,9 @@ function handleForm()
 function maakSessieVariabelen() 
 {
         global $connection;
-        $user_id = $_SESSION['user_id'];
+        $user_id = $_SESSION['kandidaat_id'];
                      // Eerst gegevens uit de USER-Tabel halen 
-                         $sql4 = mysqli_query($connection, "SELECT * FROM `user` WHERE `user_id`='".$_SESSION["user_id"]."' AND `user_activ`='yes'");
+                         $sql4 = mysqli_query($connection, "SELECT * FROM `user` WHERE `user_id`='".$user_id."' AND `user_activ`='yes'");
                       
                         if (mysqli_num_rows($sql4)==0)  
                             {
@@ -269,6 +275,7 @@ function maakSessieVariabelen()
                             }
                        while ($row = mysqli_fetch_assoc($sql4))//de login procedure is succesvol doorlopen,dus kunnen de sessie-variabelen nu gemaakt worden
                          {
+                              $_SESSION['kandidaatLogin'] = $row['user_inlognaam'];
                              $_SESSION['achternaam'] = $row['achternaam'];
                              $_SESSION['tussenvoegsel'] = $row['tussenvoegsel'];
                              $_SESSION['voornaam'] = $row['voornaam'];
@@ -969,8 +976,25 @@ function handleBestelForm()//deze functie heb ik niet meer gebruikt
  { 
     global $connection;
     global $cvpath;
+    
+    global $connection;
+    $sql = mysqli_query($connection, "SELECT * FROM user WHERE `user_id` = '".$_SESSION['kandidaat_id']."'");
+    if ($sql){
+        while ($row = mysqli_fetch_assoc($sql)) {
+            $motivatie =  $row['motivatie'];
+        }
+    }
+    else {
+        echo "fout";
+    };
+if(isSet($motivatie)){
+    $_SESSION['motivatie'] = $motivatie;
+}
+
+
+    
     echo " <div class=\"container\">";
-            echo "<h1 class=\"profiel\">Je persoonlijk profiel</h1>";          
+            echo "<h3 class=\"profiel\">Het profiel van ".$_SESSION['voornaam']." ".$_SESSION['tussenvoegsel']." ".$_SESSION['achternaam']."</h3>";          
            echo "<form id=\"fuikweb-register\" action='".htmlspecialchars($_SERVER["PHP_SELF"])."' method=\"post\"  enctype=\"multipart/form-data\" role=\"form\">";
            // echo "<form id=\"data\" action='".htmlspecialchars($_SERVER["PHP_SELF"])."' method=\"post\"  enctype=\"multipart/form-data\" role=\"form\">"; 
                 persoonlijkeGegevens();		                                               
@@ -997,7 +1021,7 @@ function handleBestelForm()//deze functie heb ik niet meer gebruikt
 function handleKandidaatRegForm () 
  {
     
-    if($_FILES['foto'])
+  /*  if($_FILES['foto'])
                 {
                     //echo "conditie 2, de foto is gewijzigd<br/>";
                     verwerkFoto();
@@ -1006,14 +1030,14 @@ function handleKandidaatRegForm ()
                 {
                     //echo "conditie 3, de cv is veranderd<br/>";
                     verwerkCV();
-                    }            
+                    } */           
      verwerkUser();
-     verwerkFunctie();
+   /*  verwerkFunctie();
      verwerkRegio();
      verwerkSector();
-     verwerkBedrijf();
+     verwerkBedrijf();*/
      error_reporting(0);
-     maakSessieVariabelen();     
+    // maakSessieVariabelen();     
      header("Refresh:0");
      showKandidaatRegForm();
      error_reporting(E_ALL);
@@ -1031,18 +1055,40 @@ function handleKandidaatRegForm ()
     $telefoon = variableWaarde('telefoon');
     $geboorteDatum = variableWaarde('geb-datum');
     $email = variableWaarde('email');  // is al bekend in de aanmeld fase , zie aanmeld afhandeling vanaf r443
-    $loginnaam = variableWaarde('loginnaam'); 
+    $loginnaam = $_SESSION['kandidaatLogin']; 
     $cv = $_SESSION['cv'];
+    $motivatie = variableWaarde('motivatie');
     $foto = $_SESSION['foto'];
     $linkedIn = variableWaarde('linkedIn');
     $facebook = variableWaarde('facebook');
-    $twitter = variableWaarde('twitter');   
+    $twitter = variableWaarde('twitter');  
+    
+        switch ($motivatie) {
+        case 'mot9':
+            $mot9 = "seleced";
+        case 'mot7' : 
+            $mot7 = "selected";
+            break;
+        case 'mot5' : 
+            $mot5 = "selected";
+            break;
+        case 'mot3' : 
+            $mot3 = "selected";
+            break;
+        case 'mot1' : 
+            $mot1 = "selected";
+            break;
+    }
+    
+    
+    
+    
      
     global $cvpath;
     echo "<section id=\"persoonlijke-gegevens\">";
         echo "<section id=\"personalia\">";
             echo "<div class=\"kop\">";
-                echo "<p>Vul je persoonlijke gegevens in, velden met een * zijn verplicht.</p>";
+               // echo "<p>Vul je persoonlijke gegevens in, velden met een * zijn verplicht.</p>";
             echo "</div>";
             
             echo "<div class=\"row\">";
@@ -1056,21 +1102,21 @@ function handleKandidaatRegForm ()
             echo "<div class=\"row\">";
                 echo "<label class=\"col-sm-3\" for=\"achternaam\">Achternaam *</label>";
                 echo "<div class=\"col-sm-9\">";
-                    echo "<input type=\"text\" class=\"form-control input-sm\" id=\"achternaam\" name=\"achternaam\" value='$achternaam' required=\"required\" autofocus=\"autofocus\"/>";
+                    echo "<input type=\"text\" class=\"form-control input-sm\" id=\"achternaam\" name=\"achternaam\" value='$achternaam' readonly  required=\"required\" autofocus=\"autofocus\"/>";
                 echo "</div>";	
             echo "</div>";
             
             echo "<div class=\"row\">";
                 echo "<label class=\"col-sm-3\" for=\"tussenvoegsel\">Tussenvoegsel</label>";
                 echo "<div class=\"col-sm-3\">";
-                    echo "<input type=\"text\" class=\"form-control input-sm\" id=\"tussenvoegsel\" name=\"tussenvoegsel\" value='$tussenvoegsel'/>";
+                    echo "<input type=\"text\" class=\"form-control input-sm\" id=\"tussenvoegsel\" name=\"tussenvoegsel\" value='$tussenvoegsel'readonly />";
                 echo "</div>";	
             echo "</div>";
             
             echo "<div class=\"row\">";
                 echo "<label class=\"col-sm-3 text-left\" for=\"voornaam\">Voornaam *</label>";
                 echo "<div class=\"col-sm-9\">";
-                        echo "<input type=\"text\" class=\"form-control input-sm\" id=\"voornaam\" name=\"voornaam\" value='$voornaam' required=\"required\"  />";
+                        echo "<input type=\"text\" class=\"form-control input-sm\" id=\"voornaam\" name=\"voornaam\" value='$voornaam' readonly required=\"required\"  />";
                 echo "</div>";
             echo "</div>";
             
@@ -1084,49 +1130,49 @@ function handleKandidaatRegForm ()
             echo "<div class=\"row\">";
                 echo "<label class=\"col-sm-3 col-offset-1\" for=\"straat\">Straat </label>";
                 echo "<div class=\"col-sm-9\">";
-                    echo "<input type=\"text\" class=\"form-control input-sm\" id=\"straat\" name=\"straat\" value='$straat' />";
+                    echo "<input type=\"text\" class=\"form-control input-sm\" id=\"straat\" name=\"straat\" value='$straat' readonly/>";
                 echo "</div>";
             echo "</div>";
             
             echo "<div class=\"row\">";
                 echo "<label class=\"col-sm-3\" for=\"huisnummer\">Huisnummer</label>";
                 echo "<div class=\"col-sm-2\">";
-                    echo "<input type=\"text\" class=\"form-control input-sm\" id=\"huisnummer\" name=\"huisnummer\" value=$huisnr >";
+                    echo "<input type=\"text\" class=\"form-control input-sm\" id=\"huisnummer\" name=\"huisnummer\" value='$huisnr' readonly>";
                 echo "</div>";
             echo "</div>";
             
             echo "<div class=\"row\">";
                 echo "<label class=\"col-sm-3\" for=\"toevoeging\">Toevoeging</label>";
                 echo "<div class=\"col-sm-3\">";
-                    echo "<input type=\"text\" class=\"form-control input-sm\" id=\"toevoeging\" name=\"toevoeging\"/ value='$toevoeging'>";
+                    echo "<input type=\"text\" class=\"form-control input-sm\" id=\"toevoeging\" name=\"toevoeging\"/ value='$toevoeging' readonly>";
                 echo "</div>";
             echo "</div>";
             
             echo "<div class=\"row\">";
                 echo "<label class=\"col-sm-3\" for=\"postcode\">Postcode</label>";
                 echo "<div class=\"col-sm-3\">";
-                    echo "<input type=\"text\" class=\"form-control input-sm\" id=\"postcode\" name=\"postcode\" value='$postcode' placeholder=\"1032CJ\"/>";
+                    echo "<input type=\"text\" class=\"form-control input-sm\" id=\"postcode\" name=\"postcode\" value='$postcode'  readonly placeholder=\"1032CJ\"/>";
                 echo "</div>";	
             echo "</div>";
             
             echo "<div class=\"row\">";
                 echo "<label class=\"col-sm-3\" for=\"plaats\">Plaats</label>";
                 echo "<div class=\"col-sm-9\">";
-                    echo "<input type=\"text\" class=\"form-control input-sm\" id=\"plaats\" name=\"plaats\" value='$woonplaats'/>";
+                    echo "<input type=\"text\" class=\"form-control input-sm\" id=\"plaats\" name=\"plaats\" value='$woonplaats' readonly />";
                 echo "</div>";	
             echo "</div>";
             
             echo "<div class=\"row\">";
                 echo "<label class=\"col-sm-3\" for=\"geboortedatum\">Geboortedatum</label>";
                 echo "<div class=\"col-sm-4\">";
-                    echo "<input type=\"text\" class=\"form-control input-sm\" id=\"geboortedatum\" name=\"geboortedatum\" value='$geboorteDatum' placeholder=\"dd-mm-jjjj\"/>";
+                    echo "<input type=\"text\" class=\"form-control input-sm\" id=\"geboortedatum\" name=\"geboortedatum\" value='$geboorteDatum' readonly placeholder=\"dd-mm-jjjj\"/>";
                 echo "</div>";	
             echo "</div>";
             
             echo "<div class=\"row\">";
                 echo "<label class=\"col-sm-3\" for=\"telefoon\">Telefoon *</label>";
                 echo "<div class=\"col-sm-4\">";
-                    echo "<input type=\"tel\" class=\"form-control input-sm\" id=\"telnr\" name=\"telefoon\" value='$telefoon' autocomplete = \"on\" required=\"required\"/>";
+                    echo "<input type=\"tel\" class=\"form-control input-sm\" id=\"telnr\" name=\"telefoon\" value='$telefoon'  readonly autocomplete = \"on\" required=\"required\"/>";
                 echo "</div>";	
             echo "</div>";
         echo "</section>";
@@ -1143,51 +1189,63 @@ function handleKandidaatRegForm ()
                            // echo "<img class=\"col-sm-4\" id=\"myImg\" src=\"$imagepath"."$foto\" alt=\"your image\" width=80px height=80px style=\"margin: 5px;\"/>";
                                 echo "<img class=\"col-sm-4\" id=\"myImg\" src=\"$imagepath"."$foto\" alt=\"your image\" width=100px height=100px style=\"margin: 5px;\"/>";
                                 }
-                            echo "<input class=\"col-sm-3\" type=\"file\" id=\"foto\" name=\"foto\" onchange=\"previewFiles()\" multiple>";
+                            //echo "<input class=\"col-sm-3\" type=\"file\" id=\"foto\" name=\"foto\" onchange=\"previewFiles()\" multiple>";
                             
-                            echo "<div id=\"preview\"></div>";
-                            //echo "<div id=\"preview\"></div>";
-                    echo "</div>";      
-         echo "</div>";
- echo "</section>";           //echo "</div>";
+                             /* echo "<div class=\"row\">";
+                              echo "<label class=\"col-sm-3\" for=\"plaats\">Motivatie: </label>";
+                              echo "<div class=\"col-sm-9\">";
+                              echo "<input type=\"text\" class=\"form-control input-sm\" id=\"motivatie\" name=\"motivatie\" value='$motivatie'/>";*/
+                              echo "<select class=\"form-control input-sm\" name=\"motivatie\" id=\"motiv\" value=$motivatie>";
+                              echo   "<option value=\"mot9\" $mot9>zeer gedreven</option>
+                                        <option value=\"mot7\" $mot7>aan motivatie geen gebrek</option>
+                                        <option value=\"mot5\" $mot5>passief, maar wel geinteresseerd</option>
+                                        <option value=\"mot3\" $mot3>popie jopie type</option>
+                                        <option value=\"mot1\" $mot1>niet vooruit te branden</option>";
+                            echo "</select>";  
+                                
+                                
+                                
+                              
+                    echo "</div>";	
+            echo "</div>";
+
+ echo "</section>"; 
  echo "<section id=\"cv-upload\">";      
             echo "<div id=\"cv\" class=\"form-group\">";
                  //echo "<label  for=\"cv\">CV uploaden of inzien</label>";
-                 echo "<div>";
+                 echo "<div id=\"cvInzien\" >";
                         if ($_SESSION['cv'] != ""){ 
-                            echo "Uw <a href=\"$cvpath".$_SESSION['cv']."\"  TARGET=\"_blank\">cv inzien.</a><br/><br/>";
+                            echo "<a href=\"$cvpath".$_SESSION['cv']."\"  TARGET=\"_blank\"><span class=\"cvText\">De cv inzien.</span></a><br/><br/>";
                         }
-                         echo "<mark>CV UPLOADEN.</mark><br/><br/>";
-                        echo "<input class=\"col-sm-6\" type=\"file\" class=\"form-control\" id=\"cv\" name=\"cv\"  />";
-                      //echo "<button class=\"col-sm-4 btn btn-primary btn-sm cv\" type=\"button\" id=\"buttonCv\">CV uploaden</button>";//JS versie Thijs
-                   // echo "een nieuwe cv<a href=\"$path//application/modules/humanic-portal/cv-upload.php\" ><mark> uploaden.</mark></a>";// dit is als voorbeeld voor thijs hoe je nieuwe pagina toevoegd
+                         //echo "<mark>CV UPLOADEN.</mark><br/><br/>";
+                       // echo "<input class=\"col-sm-6\" type=\"file\" class=\"form-control\" id=\"cv\" name=\"cv\"  />";                    
                  echo "</div>";
             echo "</div>";
  echo "</section>";
         
-        echo "<section id=\"sociale_media\">";
+ echo "<section id=\"sociale_media\">";
             echo "<div class=\"form-group\">";
                 echo "<label class=\"control-label col-sm-3\" for=\"linkedin\">LinkedIn</label>";
                 echo "<div class=\"col-sm-9\">";
-                    echo "<input type=\"text\" class=\"form-control input-sm\" id=\"linkedin\" name=\"linkedIn\" value='$linkedIn'  placeholder=\"linkedIn link\" />";
+                    echo "<input type=\"text\" class=\"form-control input-sm\" id=\"linkedin\" name=\"linkedIn\" value='$linkedIn' readonly  placeholder=\"linkedIn link\" />";
                 echo "</div>";	
             echo "</div>";
             
             echo "<div class=\"form-group\">";
                 echo "<label class=\"control-label col-sm-3\" for=\"facebook\">Facebook</label>";
                 echo "<div class=\"col-sm-9\">";
-                    echo "<input type=\"text\" class=\"form-control input-sm\" id=\"facebook\" name=\"facebook\" value='$facebook' placeholder=\"facebook link\"/>";
+                    echo "<input type=\"text\" class=\"form-control input-sm\" id=\"facebook\" name=\"facebook\" value='$facebook' readonly placeholder=\"facebook link\"/>";
                 echo "</div>";	
             echo "</div>";
             
             echo "<div class=\"form-group\">";
                 echo "<label class=\"control-label col-sm-3\" for=\"twitter\">Twitter</label>";
                 echo "<div class=\"col-sm-9\">";
-                    echo "<input type=\"text\" class=\"form-control input-sm\" id=\"twitter\" name=\"twitter\" value='$twitter' placeholder=\"twitter link\"/>";
+                    echo "<input type=\"text\" class=\"form-control input-sm\" id=\"twitter\" name=\"twitter\" value='$twitter' readonly placeholder=\"twitter link\"/>";
                 echo "</div>";	
             echo "</div>";
-        echo "</section>";
-    echo "</section>";	
+    echo "</section>";
+ echo "</section>";	
 
 
     
@@ -1325,111 +1383,110 @@ function handleKandidaatRegForm ()
     
     echo "<section id=\"functies\">";
         echo "<div class=\"kop\">";
-                echo "<p>Vink de functie(s) aan waarin je geinteresseerd bent en geef je werkervaring aan in die functie(op een schaal van 1 tot 10)";
+                echo "<p>Overzicht functie(s) en werkervaring (op een schaal van 1 tot 10)";
         echo "</div>";
 
         echo "<div class=\"functieVak1\">";
             echo "<div class=\"form-group\">";
-                echo "<label class=\"col-sm-7 text-left\"><input id=\"functieCheck1\" type=\"checkbox\"  name=\"functie_List[]\" value=1 $checked[0]> C# developer</label>";
-                echo "<div  id=\"ervaringSlider1\" class=\"ervaringSlider col-sm-5\">";
-                    echo "<input id=\"ervaring1\" data-slider-id=\"ervaringSlider1\" type=\"text\" data-slider-min=\"0\" data-slider-max=\"10\" data-slider-step=\"1\" data-slider-value=$ervaring[0]  width=\"5px\" name=\"ervaring1\" tooltip=\"hide\" size=\"5\"/>";		
+                echo "<label class=\"col-sm-7 text-left\"><input id=\"functieCheck1\" type=\"checkbox\"  name=\"functie_List[]\" value=1 $checked[0]  > C# developer</label>";
+                //echo "<div  id=\"ervaringSlider1\" class=\"ervaringSlider col-sm-5\">";
+                    //echo "<input id=\"ervaring1\" data-slider-id=\"ervaringSlider1\" type=\"text\" data-slider-min=\"0\" data-slider-max=\"10\" data-slider-step=\"1\" data-slider-value=$ervaring[0]  width=\"5px\" name=\"ervaring1\" tooltip=\"hide\" size=\"5\"/>";		
                     echo "<div>";
-                            echo "<span  id=\"ex1CurrentSliderValLabel\"> <span id=\"ex1SliderVal\">$ervaring[0]</span></span>";
+                            echo "<span  id=\"ex1CurrentSliderValLabel\">ervaringlevel: <span id=\"ex1SliderVal\">$ervaring[0]</span></span>";
                     echo "</div>";	
-                echo "</div>";
+                //echo "</div>";
             echo "</div>";
 
             echo "<div class=\"form-group\">";
-                echo "<label class=\"divSlider col-sm-7 text-left\"><input id=\"functieCheck2\" type=\"checkbox\"  name=\"functie_List[]\" value=2 $checked[1]> .NET developer</label>";
-                echo "<div id=\"ervaringSlider2\" class=\"ervaringSlider col-sm-5\">";
-                    echo "<input id=\"ervaring2\" data-slider-id=\"ervaringSlider2\" type=\"text\" data-slider-min=\"0\" data-slider-max=\"10\" data-slider-step=\"1\" data-slider-value=$ervaring[1] name=\"ervaring2\" tooltip=\"always\"/>";		
-
+                echo "<label class=\"divSlider col-sm-7 text-left\"><input id=\"functieCheck2\" type=\"checkbox\"  name=\"functie_List[]\" value=2 $checked[1] > .NET developer</label>";
+                //echo "<div id=\"ervaringSlider2\" class=\"ervaringSlider col-sm-5\">";
+                   // echo "<input id=\"ervaring2\" data-slider-id=\"ervaringSlider2\" type=\"text\" data-slider-min=\"0\" data-slider-max=\"10\" data-slider-step=\"1\" data-slider-value=$ervaring[1] name=\"ervaring2\" tooltip=\"always\"/>";		
                     echo "<div>";
-                            echo "<span id=\"ex2CurrentSliderValLabel\"> <span id=\"ex2SliderVal\">$ervaring[1]</span></span>";
+                            echo "<span id=\"ex2CurrentSliderValLabel\">ervaringlevel: <span id=\"ex2SliderVal\">$ervaring[1]</span></span>";
                     echo "</div>";	
-                echo "</div>";
+                //echo "</div>";
             echo "</div>";
 
             echo "<div class=\"form-group\">";
                 echo "<label class=\"col-sm-7 text-left\"><input id=\"functieCheck3\" type=\"checkbox\" name=\"functie_List[]\" value=3 $checked[2]> Front-end developer</label>";
-                echo "<div  id=\"ervaringSlider3\" class=\"ervaringSlider col-sm-5\">";
-                    echo "<input id=\"ervaring3\" data-slider-id=\"ervaringSlider3\" type=\"text\" data-slider-min=\"0\" data-slider-max=\"10\" data-slider-step=\"1\" data-slider-value=$ervaring[2] name=\"ervaring3\" tooltip=\"always\"/>";
+                //echo "<div  id=\"ervaringSlider3\" class=\"ervaringSlider col-sm-5\">";
+                   // echo "<input id=\"ervaring3\" data-slider-id=\"ervaringSlider3\" type=\"text\" data-slider-min=\"0\" data-slider-max=\"10\" data-slider-step=\"1\" data-slider-value=$ervaring[2] name=\"ervaring3\" tooltip=\"always\"/>";
                     echo "<div>";
-                        echo "<span id=\"ex3CurrentSliderValLabel\"> <span id=\"ex3SliderVal\">$ervaring[2]</span></span>";
+                        echo "<span id=\"ex3CurrentSliderValLabel\">ervaringlevel: <span id=\"ex3SliderVal\">$ervaring[2]</span></span>";
                     echo "</div>";	
-                echo "</div>";
+               // echo "</div>";
             echo "</div>";
 
             echo "<div class=\"form-group\">";                            
                 echo "<label class=\"col-sm-7 text-left\"><input id=\"functieCheck4\" type=\"checkbox\" name=\"functie_List[]\" value=4 $checked[3]> Back-end developer</label>";
-                echo "<div id=\"ervaringSlider4\" class=\"ervaringSlider col-sm-5\">";
-                    echo "<input id=\"ervaring4\" data-slider-id=\"ervaringSlider4\" type=\"text\" data-slider-min=\"0\" data-slider-max=\"10\" data-slider-step=\"1\" data-slider-value=$ervaring[3] name=\"ervaring4\" tooltip=\"always\"/>";	    
+                //echo "<div id=\"ervaringSlider4\" class=\"ervaringSlider col-sm-5\">";
+                  //  echo "<input id=\"ervaring4\" data-slider-id=\"ervaringSlider4\" type=\"text\" data-slider-min=\"0\" data-slider-max=\"10\" data-slider-step=\"1\" data-slider-value=$ervaring[3] name=\"ervaring4\" tooltip=\"always\"/>";	    
                     echo "<div>";
-                        echo "<span id=\"ex4CurrentSliderValLabel\"> <span id=\"ex4SliderVal\">$ervaring[3]</span></span>";
+                        echo "<span id=\"ex4CurrentSliderValLabel\">ervaringlevel: <span id=\"ex4SliderVal\">$ervaring[3]</span></span>";
                     echo "</div>";
-                echo "</div>";
+                //echo "</div>";
             echo "</div>";
 
             echo "<div class=\"form-group\">";
                 echo "<label class=\"divSlider col-sm-7 text-left\"><input id=\"functieCheck5\" type=\"checkbox\"  name=\"functie_List[]\" value=5 $checked[4]> Java developer</label>";
-                echo "<div id=\"ervaringSlider5\" class=\"ervaringSlider col-sm-5\">";
-                    echo "<input  id=\"ervaring5\" data-slider-id=\"ervaringSlider5\" type=\"text\" data-slider-min=\"0\" data-slider-max=\"10\" data-slider-value=$ervaring[4] name=\"ervaring5\" tooltip=\"always\"/>";		
+               // echo "<div id=\"ervaringSlider5\" class=\"ervaringSlider col-sm-5\">";
+                   // echo "<input  id=\"ervaring5\" data-slider-id=\"ervaringSlider5\" type=\"text\" data-slider-min=\"0\" data-slider-max=\"10\" data-slider-value=$ervaring[4] name=\"ervaring5\" tooltip=\"always\"/>";		
                     echo "<div>";
-                        echo "<span id=\"ex5CurrentSliderValLabel\"> <span id=\"ex5SliderVal\">$ervaring[4]</span></span>";
+                        echo "<span id=\"ex5CurrentSliderValLabel\">ervaringlevel: <span id=\"ex5SliderVal\">$ervaring[4]</span></span>";
                     echo "</div>";
-                echo "</div>";
+              //  echo "</div>";
             echo "</div>";
         echo "</div>";
 
         echo "<div class=\"functieVak2\">";
             echo "<div class=\"form-group\">";
                     echo "<label class=\"col-sm-7 text-left\"><input id=\"functieCheck6\" type=\"checkbox\"  name=\"functie_List[]\" value=6 $checked[5]> Project manager</label>";
-                    echo "<div id=\"ervaringSlider6\" class=\"ervaringSlider col-sm-5\">";
-                        echo "<input id=\"ervaring6\" data-slider-id=\"ervaringSlider6\" type=\"text\" data-slider-min=\"0\" data-slider-max=\"10\" data-slider-step=\"1\" data-slider-value=$ervaring[5] name=\"ervaring6\" tooltip=\"always\"/>";		
+                    //echo "<div id=\"ervaringSlider6\" class=\"ervaringSlider col-sm-5\">";
+                       // echo "<input id=\"ervaring6\" data-slider-id=\"ervaringSlider6\" type=\"text\" data-slider-min=\"0\" data-slider-max=\"10\" data-slider-step=\"1\" data-slider-value=$ervaring[5] name=\"ervaring6\" tooltip=\"always\"/>";		
                         echo "<div class=\"sliderValue\" >";
-                            echo "<span id=\"ex6CurrentSliderValLabel\"> <span id=\"ex6SliderVal\">$ervaring[5]</span></span>";
+                            echo "<span id=\"ex6CurrentSliderValLabel\">ervaringlevel: <span id=\"ex6SliderVal\">$ervaring[5]</span></span>";
                         echo "</div>";
-                    echo "</div>";
+                    //echo "</div>";
             echo "</div>";
 
             echo "<div class=\"form-group\">";
                 echo "<label class=\"divSlider col-sm-7 text-left\"><input id=\"functieCheck7\" type=\"checkbox\"  name=\"functie_List[]\" value=7 $checked[6]> Functioneel ontwerper</label>";
-                echo "<div id=\"ervaringSlider7\" class=\"ervaringSlider col-sm-5\">";
-                    echo "<input id=\"ervaring7\" data-slider-id=\"ervaringSlider7\" type=\"text\" data-slider-min=\"0\" data-slider-max=\"10\" data-slider-step=\"1\" data-slider-value=$ervaring[6] name=\"ervaring7\" tooltip=\"always\"/>";
+               // echo "<div id=\"ervaringSlider7\" class=\"ervaringSlider col-sm-5\">";
+                   // echo "<input id=\"ervaring7\" data-slider-id=\"ervaringSlider7\" type=\"text\" data-slider-min=\"0\" data-slider-max=\"10\" data-slider-step=\"1\" data-slider-value=$ervaring[6] name=\"ervaring7\" tooltip=\"always\"/>";
                     echo "<div>";
-                        echo "<span id=\"ex7CurrentSliderValLabel\"> <span id=\"ex7SliderVal\">$ervaring[6]</span></span>";
+                        echo "<span id=\"ex7CurrentSliderValLabel\">ervaringlevel: <span id=\"ex7SliderVal\">$ervaring[6]</span></span>";
                     echo "</div>";	
-                echo "</div>";
+               // echo "</div>";
             echo "</div>";
 
             echo "<div class=\"form-group\">";
                 echo "<label class=\"col-sm-7 text-left\"><input id=\"functieCheck8\" type=\"checkbox\" name=\"functie_List[]\" value=8 $checked[7]> Test coordinator</label>";
-                echo "<div  id=\"ervaringSlider8\" class=\"ervaringSlider col-sm-5\">";
-                    echo "<input id=\"ervaring8\" data-slider-id=\"ervaringSlider8\" type=\"text\" data-slider-min=\"0\" data-slider-max=\"10\" data-slider-step=\"1\" data-slider-value=$ervaring[7] name=\"ervaring8\" tooltip=\"always\"/>";
+               // echo "<div  id=\"ervaringSlider8\" class=\"ervaringSlider col-sm-5\">";
+                   // echo "<input id=\"ervaring8\" data-slider-id=\"ervaringSlider8\" type=\"text\" data-slider-min=\"0\" data-slider-max=\"10\" data-slider-step=\"1\" data-slider-value=$ervaring[7] name=\"ervaring8\" tooltip=\"always\"/>";
                     echo "<div>";
-                        echo "<span id=\"ex8CurrentSliderValLabel\"> <span id=\"ex8SliderVal\">$ervaring[7]</span></span>";
+                        echo "<span id=\"ex8CurrentSliderValLabel\">ervaringlevel: <span id=\"ex8SliderVal\">$ervaring[7]</span></span>";
                     echo "</div>";	
-                echo "</div>";
+                //echo "</div>";
             echo "</div>";
 
             echo "<div class=\"form-group\">";
             echo "<label class=\"col-sm-7\"><input id=\"functieCheck9\" type=\"checkbox\" name=\"functie_List[]\" value=9 $checked[8]> Product owner</label>";
-                echo "<div id=\"ervaringSlider9\" class=\"ervaringSlider col-sm-5\">";
-                    echo "<input id=\"ervaring9\" data-slider-id=\"ervaringSlider9\" type=\"text\" data-slider-min=\"0\" data-slider-max=\"10\" data-slider-step=\"1\" data-slider-value=$ervaring[8] name=\"ervaring9\" tooltip=\"always\"/>";		
+                //echo "<div id=\"ervaringSlider9\" class=\"ervaringSlider col-sm-5\">";
+                   // echo "<input id=\"ervaring9\" data-slider-id=\"ervaringSlider9\" type=\"text\" data-slider-min=\"0\" data-slider-max=\"10\" data-slider-step=\"1\" data-slider-value=$ervaring[8] name=\"ervaring9\" tooltip=\"always\"/>";		
                     echo "<div>";
-                        echo "<span id=\"ex9CurrentSliderValLabel\"> <span id=\"ex9SliderVal\">$ervaring[8]</span></span>";
+                        echo "<span id=\"ex9CurrentSliderValLabel\">ervaringlevel: <span id=\"ex9SliderVal\">$ervaring[8]</span></span>";
                     echo "</div>";
-                echo "</div>";
+                //echo "</div>";
             echo "</div>";
 
             echo "<div class=\"form-group\">";
             echo "<label class=\"divSlider col-sm-7 text-left\"><input id=\"functieCheck10\" type=\"checkbox\"  name=\"functie_List[]\" value=10 $checked[9]> Business analist</label>";
-                echo "<div id=\"ervaringSlider10\" class=\"ervaringSlider col-sm-5\">";
-                    echo "<input  id=\"ervaring10\" data-slider-id=\"ervaringSlider10\" type=\"text\" data-slider-min=\"0\" data-slider-max=\"10\" data-slider-value=$ervaring[9] name=\"ervaring10\"  tooltip=\"always\"/>";		
+               // echo "<div id=\"ervaringSlider10\" class=\"ervaringSlider col-sm-5\">";
+                  //  echo "<input  id=\"ervaring10\" data-slider-id=\"ervaringSlider10\" type=\"text\" data-slider-min=\"0\" data-slider-max=\"10\" data-slider-value=$ervaring[9] name=\"ervaring10\"  tooltip=\"always\"/>";		
                     echo "<div>";
-                        echo "<span id=\"ex10CurrentSliderValLabel\"> <span id=\"ex10SliderVal\">$ervaring[9]</span></span>";                                   
+                        echo "<span id=\"ex10CurrentSliderValLabel\">ervaringlevel: <span id=\"ex10SliderVal\">$ervaring[9]</span></span>";                                   
                     echo "</div>";
-                echo "</div>";
+               // echo "</div>";
             echo "</div>";
         echo "</div>";    
     echo "</section>";
@@ -1469,7 +1526,8 @@ function handleKandidaatRegForm ()
         $date = new DateTime($uitkeringGeldigTot);
         $geldigtot = date_format($date, 'M-Y');
     }*/
-    
+    $uitkeringGeldigTot = $_SESSION['uitkeringGeldigTot'];
+  
     $selectWW; $selectWajong; $selectIOAW; $selectBijstand = "";
     switch ($uitkering) {
         case 'WW' : 
@@ -1484,6 +1542,12 @@ function handleKandidaatRegForm ()
         case 'Bijstand' : 
             $selectBijstand = "selected";
             break;
+        case 'Geen ZZP' : 
+            $selectGeenZzp = "selected";
+            break;
+        case 'Geen Bijstand' : 
+            $selectGeenBijstand = "selected";
+            break;
     }
 
 
@@ -1492,7 +1556,7 @@ function handleKandidaatRegForm ()
             echo "<label class=\"col-sm-12 text-left\"><input id=\"rijbewijsCheck\" type=\"checkbox\" value=$rijbewijs  name=\"rijbewijs\" $checkRijbewijs > Rijbewijs</label>";					
         echo "</div>";
         echo "<div class=\"form-group\" id=\"auto\">";
-            echo "<label class=\"col-sm-12 text-left\"><input id=\"autoCheck\" type=\"checkbox\" value=$auto $checkAuto> Auto</label>";					
+            echo "<label class=\"col-sm-12 text-left\"><input id=\"autoCheck\" type=\"checkbox\" value=$auto name=\"auto\" $checkAuto> Auto</label>";					
         echo "</div>";
         echo "<div class=\"form-group\" id=\"financieel\">";
             echo "<label class=\"col-sm-5\" for=\"salaris\">Salaris indicatie</label>";
@@ -1507,60 +1571,77 @@ function handleKandidaatRegForm ()
                     echo   "<option value=\"WW\" $selectWW>WW</option>
                             <option value=\"IOAW\" $selectIOAW>IOAW</option>
                             <option value=\"Wajong\" $selectWajong>Wajong</option>
-                            <option value=\"WAO\" $selectBijstand>WAO</option>";
+                            <option value=\"WAO\" $selectBijstand>WAO</option>
+                            <option value=\"Geen ZZP\" $selectGeenZzp>Geen ZZP'er</option>
+                            <option value=\"Geen Bijstand\" $selectGeenBijstand>Geen Bijstand</option>";
                 echo "</select>";
             echo "</div>";	
         echo "</div><br/><br/>";
         echo "<div class=\"form-group\" id=\"ww\">";
             echo "<label class=\"col-sm-5\" for=\"salaristkeringGeldigTot\">Uitkering geldig tot</label>";
             echo "<div class=\"col-sm-4\">";
-                echo "<input type=\"date\" class=\"form-control input-sm\" id=\"salaris\" name=\"uitkeringGeldigTot\" value=$geldigtot >";
+                echo "<input type=\"text\" class=\"form-control input-sm\" id=\"salaris\" name=\"uitkeringGeldigTot\" value=$uitkeringGeldigTot placeholder=\"mm-jjjj\" />";
             echo "</div>";	
         echo "</div>";
     echo "</section>";	
 
- };
+ }
+ 
+  function bepaalSectorErvaring($selected) {
+     switch ($selected) {
+        case 1 :
+            return $_POST['sectorErvaring0'];
+            break;
+        case 2 :
+            return $_POST['sectorErvaring1'];
+            break;
+        case 3 :
+            return $_POST['sectorErvaring2'];
+            break;
+        case 4 :
+            return $_POST['sectorErvaring3'];
+            break;
+        
+        default:
+            break;
+    }
+ }; 
+ 
  
  function toonSector() {
     global $connection;
-    global $sectorArray;
+    global $sectorArray;// de sectorArray wordt in kandidaat.php gemaakt en bestaat uit een collectie van de sector id's voor de user in de huidige sessie
     global $bedrijfArray;
+    global $gewensteSectorArray;
+    global $bedrijfGewerktArray;
+    
+        $checkedGewensteSector = array();
+        for ($i = 1; $i <= 4; $i++){//de sector id's zijn 1 t/m 4
+            $gewensteSectorIndex = array_search($i, array_column($gewensteSectorArray, 0));//verzamel de sector id's van de huidige user en stop ze in de array $sectorIndex
+            if (IS_NUMERIC($gewensteSectorIndex)){
+                array_push($checkedGewensteSector, "checked='checked'");        
+            }
+            else {
+                array_push($checkedGewensteSector, "");
+            };
+        };
+    
 
-    echo "<section id=\"sectorwerk\">";
-        $aantalSector = count($sectorArray);
         $checkedSector = array();
-
-        for ($i = 1; $i <= 4; $i++){
-            $sectorIndex = array_search($i, array_column($sectorArray, 0));
+        $sectorErvaring = array();
+        for ($i = 1; $i <= 4; $i++){//de sector id's zijn 1 t/m 4
+            $sectorIndex = array_search($i, array_column($sectorArray, 0));//verzamel de sector id's van de huidige user en stop ze in de array $sectorIndex
             if (IS_NUMERIC($sectorIndex)){
-                array_push($checkedSector, "checked='checked'");
+                array_push($checkedSector, "checked='checked'");        
+                array_push($sectorErvaring, $sectorArray[$sectorIndex][1]);
             }
             else {
                 array_push($checkedSector, "");
+                array_push($sectorErvaring, 0);
             };
         };
 
-        echo "<div id=\"sector\">";
-            echo "<div class=\"kop\">";
-                    echo "<p>Vink de sector(s) aan waar je in werkzaam bent geweest</p>";
-            echo "</div>";
-            echo "<label class=\"checkbox-inline\">";
-                    echo "<input type=\"checkbox\" value=1  name=\"sector_List[]\" $checkedSector[0]>ICT";
-            echo "</label>";
-            echo "<label class=\"checkbox-inline\">";
-                    echo "<input type=\"checkbox\" value=2 name=\"sector_List[]\" $checkedSector[1]>Zorg";
-            echo "</label>";
-            echo "<label class=\"checkbox-inline\">";
-                    echo "<input type=\"checkbox\" value=3 name=\"sector_List[]\" $checkedSector[2]>Industrie";
-            echo "</label>";
-            echo "<label class=\"checkbox-inline\">";
-                    echo "<input type=\"checkbox\" value=4 name=\"sector_List[]\" $checkedSector[3]>Retail";
-            echo "</label>";
-        echo "</div>";
-
-
-        $checkedBedrijf = array();
-
+     $checkedBedrijf = array();
         for ($i = 1; $i <= 4; $i++){
             $bedrijfIndex = array_search($i, array_column($bedrijfArray, 0));
             if (IS_NUMERIC($bedrijfIndex)){
@@ -1569,12 +1650,87 @@ function handleKandidaatRegForm ()
             else {
                 array_push($checkedBedrijf, "");
             };
-        };                         
+        };   
+        
+       $checkedBedrijfGewerkt = array();
 
+        for ($i = 1; $i <= 4; $i++){
+            $bedrijfGewerktIndex = array_search($i, array_column($bedrijfGewerktArray, 0));
+            if (IS_NUMERIC($bedrijfGewerktIndex)){
+                array_push($checkedBedrijfGewerkt, "checked='checked'");
+            }
+            else {
+                array_push($checkedBedrijfGewerkt, "");
+            };
+        };
+ 
+        
+              
+echo "<section id=\"sectorwerk\">";
+     echo "<div id=\"sector\">";
+            echo "<div class=\"kop\">";
+                    echo "<p>Vink de sector(s) aan waar je in werkzaam bent geweest en geef op hoeveel jaren</p>";
+            echo "</div>";
+            echo "<label class=\"checkbox-inline\">";
+                    echo "<input type=\"checkbox\" value=1  name=\"sector_List[]\" $checkedSector[0]>ICT ";
+                    echo "<input type=\"text\" id=\"sectorErvaring0\" name=\"sectorErvaring0\" value=$sectorErvaring[0]jaren_gewerkt readonly>";	
+            echo "</label>";
+            echo "<div class=\"subKopRechts\">";
+                    echo "<label class=\"checkbox-inline extra1\">";
+                            echo "<input type=\"checkbox\" value=2 name=\"sector_List[]\" $checkedSector[1]>Zorg";
+                            echo "<input type=\"text\" id=\"sectorErvaring1\" name=\"sectorErvaring1\" value=$sectorErvaring[1]jaren_gewerkt readonly>";	
+                    echo "</label>";
+            echo "</div>";
+            echo "<label class=\"checkbox-inline\">";
+                    echo "<input type=\"checkbox\" value=3 name=\"sector_List[]\" $checkedSector[2]>Industrie";
+                    echo "<input type=\"text\" id=\"sectorErvaring2\" name=\"sectorErvaring2\" value=$sectorErvaring[2]jaren_gewerkt readonly>";	
+            echo "</label>";
+            echo "<div class=\"subKopRechts\">";
+                    echo "<label class=\"checkbox-inline extra1\">";
+                            echo "<input type=\"checkbox\" value=4 name=\"sector_List[]\" $checkedSector[3]>Retail";
+                            echo "<input type=\"text\" id=\"sectorErvaring3\" name=\"sectorErvaring3\" value=$sectorErvaring[3]jaren_gewerkt readonly>";
+                    //echo "<input type=\"text\" class=\"form-control input-sm\" id=\"sectorErvaring3\" name=\"sectorErvaring3\" value=$sectorErvaring[3]>";	
+                    echo "</label>";
+            echo "</div>";
+      echo "</div>";
+      echo "<div class=\"kop\">"; 
+                 echo "<p>Gemiddelde grootte van het bedrijven waar gewerkt is</p>";
+            echo "<label class=\"checkbox-inline\">";
+                    echo "<input type=\"checkbox\" value=1 readonly  name=\"bedrijfGewerkt_List[]\" $checkedBedrijfGewerkt[0]>micro (< 10)";
+            echo "</label>";
+            echo "<label class=\"checkbox-inline\">";
+                    echo "<input type=\"checkbox\" value=2 readonly  name=\"bedrijfGewerkt_List[]\" $checkedBedrijfGewerkt[1]>klein (<50)";
+            echo "</label>";
+            echo "<label class=\"checkbox-inline\">";
+                    echo "<input type=\"checkbox\" value=3 readonly name=\"bedrijfGewerkt_List[]\" $checkedBedrijfGewerkt[2]>middelgroot (< 250)";
+            echo "</label>";
+            echo "<label class=\"checkbox-inline\">";
+                    echo "<input type=\"checkbox\" value=4 readonly name=\"bedrijfGewerkt_List[]\" $checkedBedrijfGewerkt[3]>groot (> 500)";
+            echo "</label>";
+        echo "</div>";   
+echo "</div>"; 
+
+echo "<section id=\"sectorGewenst\">";
         echo "<div id=\"bedrijf\">";
             echo "<div class=\"kop\">";
-                    echo "<p>Gewenste grootte van het bedrijf</p>";
+                    echo "<p>Gewenste ICT-SECTOR</p>";
             echo "</div>";
+             echo "<label class=\"checkbox-inline\">";
+                    echo "<input type=\"checkbox\" value=1  name=\"gewenste_Sector_List[]\" $checkedGewensteSector[0]>ICT ";	
+            echo "</label>";
+            echo "<label class=\"checkbox-inline\">";
+                    echo "<input type=\"checkbox\" value=2 name=\"gewenste_Sector_List[]\" $checkedGewensteSector[1]>Zorg";	
+            echo "</label>";
+            echo "<label class=\"checkbox-inline\">";
+                    echo "<input type=\"checkbox\" value=3 name=\"gewenste_Sector_List[]\" $checkedGewensteSector[2]>Industrie";	
+            echo "</label>";
+            echo "<label class=\"checkbox-inline\">";
+                    echo "<input type=\"checkbox\" value=4 name=\"gewenste_Sector_List[]\" $checkedGewensteSector[3]>Retail";	
+            echo "</label>";
+        echo "</div>"; 
+   //echo"<hr>";     
+        echo "<div class=\"kop\">"; 
+                 echo "<p>Gewenste grootte van het bedrijf</p>";
             echo "<label class=\"checkbox-inline\">";
                     echo "<input type=\"checkbox\" value=1 name=\"bedrijf_List[]\" $checkedBedrijf[0]>micro (< 10)";
             echo "</label>";
@@ -1589,24 +1745,9 @@ function handleKandidaatRegForm ()
             echo "</label>";
         echo "</div>";
 
-
-                    /*                                     echo "<div class=\"form-group\" id=\"uitkering\">";
-                            echo "<label class=\"col-sm-5 \" for=\"uitkering\">Gewenste grootte bedrijf:</label>";
-                            echo "<div class=\"col-sm-4\">";
-                                    echo "<select class=\"form-control input-sm\" name=\"bedrijfgrootte\" value=\"bedrijfgrootte\">";
-                                            echo "<option value=\"1-10\">1-10</option>
-                                            <option value=\"10-50\">10-50</option>
-                                            <option value=\"50-100\">50-100</option>
-                                            <option value=\">500\">>500</option>";
-                             echo "</select>";
-                            echo "</div>";	
-                    echo "</div>"; */
-
-
-
         echo "</section>";
-    echo "</section>"; 
- };
+  echo "</section>"; 
+ }; 
  
  function toonRegio(){
     global $regioArray;
@@ -1714,6 +1855,8 @@ function handleKandidaatRegForm ()
  };
  
  function toonOpmerkingen() {
+    //$opmerking = $_SESSION['opmerkingen']; 
+    
     echo "<section id=\"opmerkingSection\">";
         echo "<div class=\"kop\">";
                 echo "<p>Opmerkingen</p>";
@@ -1726,7 +1869,7 @@ function handleKandidaatRegForm ()
         echo "<br>";
     echo "</section>";
  };
- 
+  
  function verwerkRegio() {
     global $connection;
     global $regioArray;
@@ -1850,8 +1993,15 @@ function handleKandidaatRegForm ()
  
  function verwerkUser() {
      global $connection;
-        $user_id = $_SESSION['user_id'];
-        $telefoon = checkPost('telefoon');        
+        $user_id = $_SESSION['kandidaat_id'];
+        
+        if(isSet($_POST['motivatie'])){
+            $motivatie = $_POST['motivatie'];
+        }
+        else {
+            $motivatie = $_SESSION['motivatie'];
+        }
+      /*  $telefoon = checkPost('telefoon');        
         $voornaam = checkPost('voornaam');
         $tussenvoegsel = checkPost('tussenvoegsel');
         $achternaam = checkPost('achternaam');
@@ -1874,32 +2024,11 @@ function handleKandidaatRegForm ()
         $linkedIn = checkPost('linkedIn');
         $facebook = checkPost('facebook');
         $twitter = checkPost('twitter');
-        $opmerking = checkPost('opmerking');
+        $opmerking = checkPost('opmerking');*/
         
         $sql = mysqli_query($connection, "UPDATE `user` SET 
-                        `telefoon` =   '".$telefoon."',
-                        `voornaam` =   '".$voornaam."',
-                        `tussenvoegsel` = '".$tussenvoegsel."',
-                        `achternaam` = '".$achternaam."',
-                        `straat` =     '".$straat."',
-                        `huisnummer`=  '".$huisnummer."',
-                        `toevoeging` = '".$toevoeging."',
-                        `postcode` = '".$postcode."',
-                        `plaats` =     '".$woonplaats."',
-                         `foto` = '".$foto."',  
-                        `user_email` =      '".$email."',
-                        `salaris` =     '".$salaris."',
-                        `uitkering` =   '".$uitkering."',
-                        `uitkering_geldig_tot` =  '".$uitkeringGeldigTot."',
-                        `rijbewijs` =  '".$rijbewijs."',
-                        `auto` =   '".$auto."',
-                        `reisafstand` = '".$reisafstand."',
-                        `opmerking` = '".$opmerking."',
-                        `linkedin`= '".$linkedIn."',
-                        `twitter`= '".$twitter."',
-                        `facebook` =  '".$facebook."',
-                        `cv` = '".$cv."'
-                     
+                        `motivatie` =   '".$motivatie."'
+                   
                          WHERE `user_id` = '".$user_id."'"); 
 
         if (mysqli_affected_rows($connection) == -1){

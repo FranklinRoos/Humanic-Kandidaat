@@ -6,6 +6,49 @@
 	padding:0;
 	margin :0;
 }
+
+.profkop, .naarProfiel {
+    text-align: center;
+}
+
+
+h3.profiel {
+    margin-top : 2px;
+    text-align: center;
+    color: #996600;
+}
+
+h1.profiel {
+    margin-top : 2px;
+    margin-bottom : 30px;
+    color: #996600;
+}
+
+ul.prof li {
+    padding:15px;
+    font-size : 18px;
+    color:purple;
+   list-style-type:none;
+}
+
+h3.pf {
+    color:#663d00;
+    text-decoration:underline;
+}
+
+aside.meer {
+   /* text-align: center;*/
+    margin-left: 25%;
+    background-color:#d2ff4d;
+    width:50%;
+}
+
+h2.welkom {
+    color:#cc7a00;
+    text-decoration: underline;
+    text-align: center;
+}
+
 body{
 	/* border:	2px solid red; */
 	
@@ -37,70 +80,90 @@ article{
 	margin-bottom : 25px;
 }
 
-h1.profiel {
-     color: #ff7346;
-    font-size: 28px;
-    font-weight: bold;
-    padding: 5px 0 23px 2px;
-    margin-top: 5px;
-    letter-spacing: 1px;
-}
-
 #postcode #email #salaris {
     width: 70%;
 }
 
 /* reisafstand  */
 
+#inlogMelding {
+    width : 50%;
+    margin-left : center;
+    
+}
 .afstand {
 
     margin-bottom: -40px;
 }
 
+#motiv {
+    background-color: #f2ffcc;
+    color:black;
+}
 
 #sociale_media{
-	float : right;
+        float : right;
+        /*margin-top : 10px;*/
         width : 40%;
-/* 	heigth : 325px; */
-	border : 1px solid black;
-        padding : 10px;
-        margin-left : -50px;
+        /* heigth : 325px; */
+        border : 1px solid black;
+        padding :-10px;
+       /* margin-left : -50px;*/
+}
+
+#cvInzien {
+    background-color: #ffffcc;   
+}
+
+.cvText {
+    font-size: 20px;
+    color:black;
 }
 
 #sociaal_foto, #cv-upload{
 	
         float: right;
-	margin-left : 25px;
-	/*width : 40%;*/
+        margin-left : 25px;
+        margin-bottom: 25px;
+        width : 45%;
 }
 
-#fototest{
-	width : 60%;
-}
+#fotoMelding{   
+        font-size: 10px;
+        color : red;
+} 
 
 #foto {
-        margin-left : 2px;
+        margin-left : 6px;
         float : left;
-        margin-bottom : 10px;
-        width: 400px;
-}
-
-
-#cv-upload {
-    margin-top: 20px;
+        margin-bottom : 25px;
 }
 
 #cv {
-        margin-left : 5px;
+        margin-left : 1px;
         margin-bottom : 25px;
-        width: 400px;
-        clear : both;
+        /*width: 400px;*/
+        float : left;
+}
+
+.objP {
+    color : red;
 }
 
 #myImg {
     float: left;
     width: 125px;
     height: 100px;
+}
+
+#myCV {
+    float : left;
+    width : 100px;
+    height : 100px;
+}
+
+.subKopRechts {
+    float: right;
 }
 
 
@@ -142,7 +205,7 @@ h1.profiel {
 	font-size : 12px;
 } 
 
-#sectorwerk{
+#sectorwerk, #sectorGewenst{
 	float : right;
 	padding : 10px 5px;
 	width : 50%;
@@ -178,36 +241,20 @@ h1.profiel {
 	
 }
 
-/* #uitkering{
-	float: right;
-	margin-right : 10px;
-	width : 45%;
-/* 	heigth : 325px; */
-	/* border : 1px solid black; 
-} */
-
-/* .range{
-	float : right;
-} */
-
-
-
-/* #ervaringHeader{
-	font-size : 12px;
-	padding : -5px;
-} */
-
-/* #achternaam {
-	width : 500px;
-} */
-
-/* #divSlider {
-	margin-left : 10px;
-	vertical-align : middle;
-} */
 label {
 	font-size : small;
 	padding-left : 15px;
+}
+
+
+.extra1 {
+     padding: 15px;
+    margin-left: 20px;
+}
+
+.checkbox-inline {
+    padding: 15px;
+    margin-left: 20px;
 }
 
 .checkbox {
@@ -276,12 +323,6 @@ label {
     
     /*border : 1px solid black;*/
 }
-/***Gewenste functies***/
-/* #functies{
-	border	:	3px solid orange;
-	width		:	800px;
-	height	:	200px;
-} */
 
 /***Aanvullende voorzieningen***/
 .voorziening{
@@ -323,12 +364,6 @@ label {
 	height	:	180px;
 }
 
-/***Sectoor***/
-/* #sector{
-	width		:	800px;
-	height	:	 50px;
-	border 	: 	3px solid green;
-} */
 
 /***De grootte van het bedrijf***/
 #bedrijf-grootte{
@@ -346,33 +381,6 @@ label {
 }
 
 
-/* #plaatsen{
-	width	: 800px;
-	height	: 200px;
-	border 	: 3px solid red;
-}
-#rij-een{
-	display	: inline-block;
-	float	: left;
-	border	: 3px solid red;
-	width	: 150px;
-	height	: 150px;
-	margin	: 5px;	
-}
-#rij-twee{
-	float	: left;
-	border	: 3px solid red;
-	width	: 150px;
-	height	: 150px;
-	margin	: 5px;	
-}
-#rij-drie{
-	float		:	left;
-	border	: 	3px solid red;
-	width		:	150px;
-	height	:	150px;
-	margin	:	5px;
-}*/
 /***Opmerkingen***/
 #opmerkingSection{
 	width : 100%;
@@ -400,12 +408,12 @@ label {
 
 #submit {
     margin-right : 5px;
-    margin: 15px 15px 15px 75px;
-    background-color: blue;
+    width:120px;
 }
 
-#upload-blok {
-    float: left;
-    margin-left: 500px;
+#inlogMelding {
+    width : 80%;
+    margin-left : center;
+    font-size : 18px;
+    padding : 5px;
 }
-

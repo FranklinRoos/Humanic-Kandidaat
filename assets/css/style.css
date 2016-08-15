@@ -51,6 +51,16 @@ h3 {
     
 }
 
+h4.welkom {
+    color: #999966;
+    text-align: center;
+}
+
+h3.welkom {
+    color: #e6b800;
+    text-align: center;
+}
+
 h3.user {
     font-family:  cursive;
     font-size:30px;
@@ -59,10 +69,8 @@ h3.user {
 }
 
 h4 {
-    
-    
+
     font-size:24px;
-    
     font-family: 'Lateef', cursive;
     font-weight: bold;
     color: #006600;
@@ -84,26 +92,41 @@ h6 {
  
 }
 
-#contentwrapper {
+
+/* voor de introtext in tabel pages met page_nav_id=12 */
+ul#adminapp li { 
+    list-style: none;
+    margin-left: 10px;
+}
+
+#introHead {
+    font-size:200%;
+    font-style: oblique;
+    color: #ff9933;
+    text-align: center;
+    padding-bottom: 15px;
+}
+/* einde voor de introtext in tabel pages met page_nav_id=12 */
+
+#contentwrapper {/*beinvloed de header */
    min-height: 100%;
    height: auto !important;
    height: 100%;
-   margin: 0 auto -145px;
+   margin: 0 auto -135px;
 }
 
-/* header opmaak */
-#header {
-                color: grey;
-	font-size:110%;
-	text-align: center;
-	clear: both;
-	margin-bottom: 15px;
+/*#footer {
+    margin-top: 60px;
+    height: 20px;
+    font-size: 14px;
+    background-color: rgb(60, 60, 60);
 }
 
-#adminapp {
-    list-style: none;
-}
-
+#footer, .push {
+  width: 100%;
+  height: 300px;
+  clear: both;
+} */
 
 .merk {
 	
@@ -431,21 +454,29 @@ body {
         color:silver;
         text-align: center;
     } 
+
+  #overzichtTabel {
+        padding-bottom: 30px;/* wat ruimte creeren tussen het formulier en het volgende DOM element*/
+    }
+    
+    td.prev {
+        font-size:150%;
+    }
     
  table#edit {
         margin-left: -180px;       
         background-color:lightgrey;
         color:black;
     }
-    
-#edit th { 
-        /*background-color: #A7C942;*/
-        background-color: #4d2600;
-        color: #fff;
-       
-} 
+
+#edit th {/*opmaak voor de Tabel Header van tabel uit overzicht userFunction.php */
+    color:white;
+    font-weight: bold;
+    background-color: #4d2600;
+}
 
 #edit td, #edit th {
+       /* border: 1px solid #98bf21;*/
         border: 1px solid #98bf21;
         padding: 3px 7px 2px 7px;
         font-weight: normal;
@@ -500,6 +531,7 @@ div.bericht h3 {
     padding: 10px;
 }
 
+
 #introtext {
     float: none;
     height: 250px;
@@ -507,13 +539,12 @@ div.bericht h3 {
     margin-left: 26%;
     margin-right: 26%;
     font-style: normal;
-    font-size: 35px;
+    font-size: 17px;
     font-family: serif;
     font-weight: normal;
     color: black;
     padding: 10px;
     background-color: #ffffcc;
-    /*background-color: rgb(58, 114, 183);*/
    
 }
 .intro{
@@ -576,8 +607,20 @@ div.bericht h3 {
 }
 
 .nav {/* letter grootte van de navigatie tekst */
-     font-size:100%;
-     color: white;
+     font-size:130%;
+
+}
+
+
+ul.nav nav-tabs {
+    background-color: #ffcc66;
+}
+
+.navbar navbar-fixed-top {
+    top: 0;
+    border-width: 0 0 1px;
+   background-color: linear-gradient(to bottom,#ffcc66,#ffb72a 100%);
+    opacity: 0.9;
 }
 
 .navbar-inverse {

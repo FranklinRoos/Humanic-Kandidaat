@@ -3,11 +3,25 @@
 function overzicht()
 {
     global $connection;
+    global $path;
+    global $imagepath;
+    
+    if(!isSet($_SESSION['blad']))
+  {
+    $_SESSION['blad']='user_blad';
+    }    
+if(isSet($_SESSION['blad'])&& $_SESSION['blad'] !='user_blad')    
+{
+  $_SESSION['blad']='user_blad';
+  $_SESSION['user_page']=0;// hierdoor kom ik in de eerste pagina van het kandidaat overzicht als ik uit de kandidaat.php kom na het bekijken van een profiel 
+}
+   
+    
+    
     
      if(isset($_GET['user_page']))
      {
-      $_SESSION['user_page']=$_GET['user_page'];
-    
+      $_SESSION['user_page']=$_GET['user_page'];     
       }
    else
       {
@@ -33,8 +47,6 @@ function overzicht()
     
     $users = mysqli_query($connection, "SELECT * FROM user WHERE `user_authorisatie`= 'usr'") or die(mysqli_error());// ik doe hier een call(query) naar de databse op alle users in de 'user'tabel
     $count_users = mysqli_num_rows($users);// hier tel ik vervolgens hoeveel users de query heeft opgeleverd
-    //print "$count_users<br>";
-    //print "$to<br>";
     $objecten = mysqli_query($connection, "SELECT * FROM user  WHERE `user_authorisatie`= 'usr' LIMIT $start,10") or die(mysqli_error());
     $count_Limit_users = mysqli_num_rows($objecten);
     
@@ -43,54 +55,13 @@ function overzicht()
         die("<i>Nog geen users aanwezig !</i>");
     }
      
-        $GLOBALS['path']="http://localhost:7777/humanic_queries/";
-        global $path;
-     /*   echo "<h3 align=center>Overzicht Geregistreerde Gebruikers</h3>";
-        echo "<table id=\"edit\" cellpadding=\"3\" cellspacing=\"3\" >";
-        echo "<tr>";
-        echo "<th width=\"50\" align=\"left\">Edit</th>";
-        echo "<th width=\"50\" align=\"left\">User inlognaam</th>";
-        //echo "<th width=\"50\" align=\"left\">User wachtwoord</th>";
-        echo "<th width=\"50\" align=\"left\">User authorisatie</th>";
-        echo "<th width=\"50\" align=\"left\">User Activ</th>";
-        echo "<th width=\"50\" align=\"left\">Geregistreerd sinds</th>";
-        echo "<th width=\"90\" align=\"left\">Datum laats gezien</th>";
-        echo "<th width=\"50\" align=\"left\">Tijdstip laats gezien</th>";
-        echo "</tr>";
-
-	while ($bericht = mysqli_fetch_object($objecten)) 
-        {
-            echo "<tr>";
-            echo "<td width=\"50\" align=\"left\"><a href=\"".$_SERVER['PHP_SELF']."?user_id=".$bericht->user_id."\">edit</a></td>";
-            echo "<td>".utf8_encode($bericht->user_inlognaam)."</td>";
-            //echo "<td>".utf8_encode($bericht->user_wachtwoord)."</td>";
-            echo "<td>".utf8_encode($bericht->user_authorisatie)."</td>";
-            echo "<td>".utf8_encode($bericht->user_activ)."</td>";
-            echo "<td>".utf8_encode($bericht->user_sinds)."</td>";
-            echo "<td>".utf8_encode($bericht->datum_gezien)."</td>";
-            echo "<td>".utf8_encode($bericht->tijdstip_gezien)."</td>";
-            
-            echo "</tr>";
-        }
-
-        echo "</table>";
-        echo "<table>";
-        echo "<tr><td colspan='3'></td>";
-        //echo "<tr><td>".($prev>=0?"<a href=user.php?user_page=".$prev. "> prev </a>":"prev")."</td>";
-        //echo "<td>$from...$to</td>";
-        //echo "<td>".(mysqli_num_rows($objecten)>9?"<a href=user.php?user_page=" .$next. "> next </a>":"next")."</td>";
-
-        echo "<tr><td>".($prev>=0?"<a href=user.php?user_page=".$prev. "> prev </a>":"prev")."</td>";
-        echo "<td>$from...$to</td>";
-         echo "<td>".(($count_users - $to)> 0?"<a href=user.php?user_page=" .$next. "> next </a>":"next")."</td>"; 
-        echo "</tr>";
-        echo "</table>"; */
-        
-        //donderdag 7 juli 2016 toegevoegd
+     
+        //zaterdag 13 aug 2016 toegevoegd
+   echo "<div id=\"overzichtTabel\">";
           echo "<h3 style=\"text-align:center; color:black;\">Overzicht Geregistreerde kandidaten</h3>";
-        echo "<table id=\"edit\" cellpadding=\"3\" cellspacing=\"3\" >";
+        echo "<table class=\"table-condensed\" id=\"edit\" cellpadding=\"3\" cellspacing=\"3\" >";
         echo "<tr>";
-        //echo "<th width=\"50\" align=\"left\">Edit</th>";
+        echo "<th width=\"50\" align=\"left\">View</th>";
         echo "<th width=\"50\" align=\"left\">Pasfoto</th>";
         echo "<th width=\"50\" align=\"left\">Geregistreerd sinds</th>";        
         echo "<th width=\"50\" align=\"left\">Achternaam</th>";
@@ -108,16 +79,13 @@ function overzicht()
         echo "<th width=\"50\" align=\"left\">Bedrijf-grootte</th>";
         echo "<th width=\"50\" align=\"left\">Rijbewijs</th>";
         echo "<th width=\"50\" align=\"left\">Auto</th>";
-        
-        
         echo "</tr>";
 
 	while ($bericht = mysqli_fetch_object($objecten)) 
         {
-            $imagepath=$GLOBALS['path']."assets/images/";
-            echo "<tr>";
-           // echo "<td width=\"50\" align=\"left\"><a href=\"".$_SERVER['PHP_SELF']."?user_id=".$bericht->user_id."\">edit</a></td>";
-            echo "<td>".utf8_encode("<img width=\"70\" height=\"80\" style=\"margin: 5px;\" src=\"$imagepath").utf8_encode($bericht->foto)."\" /></td>";
+            echo "<tr>";;
+            echo "<td width=\"50\" align=\"left\"><a href=\"".$GLOBALS['path']."application/modules/humanic-portal/kandidaat.php?user_id=".$bericht->user_id."\">View";
+            echo "<td>".utf8_encode("<img width=\"70\" height=\"80\" style=\"margin: 5px;\" src=\"$imagepath").utf8_encode($bericht->foto)."\" /></a></td>";
             echo "<td>".utf8_encode($bericht->user_sinds)."</td>";
             echo "<td>".utf8_encode($bericht->achternaam)."</td>";
             echo "<td>".utf8_encode($bericht->tussenvoegsel)."</td>";
@@ -144,13 +112,13 @@ function overzicht()
         //echo "<tr><td>".($prev>=0?"<a href=user.php?user_page=".$prev. "> prev </a>":"prev")."</td>";
         //echo "<td>$from...$to</td>";
         //echo "<td>".(mysqli_num_rows($objecten)>9?"<a href=user.php?user_page=" .$next. "> next </a>":"next")."</td>";
-
-        echo "<tr><td>".($prev>=0?"<a href=user.php?user_page=".$prev. "> prev </a>":"prev")."</td>";
+        echo "<br/>";
+        echo "<tr><td class=\"prev\">".($prev>=0?"<a href=user.php?user_page=".$prev. "> prev </a>":"prev")."</td>";
         echo "<td>$from...$to</td>";
-         echo "<td>".(($count_users - $to)> 0?"<a href=user.php?user_page=" .$next. "> next </a>":"next")."</td>"; 
+         echo "<td class=\"prev\">".(($count_users - $to)> 0?"<a href=user.php?user_page=" .$next. "> next </a>":"next")."</td>"; 
         echo "</tr>";
         echo "</table>";    
-        
+    echo "</div>" ;   
         
         
         

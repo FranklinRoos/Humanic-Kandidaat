@@ -464,7 +464,7 @@ body {
     }
     
  table#edit {
-        margin-left: -180px;       
+       /* margin-left: -180px; */       
         background-color:lightgrey;
         color:black;
     }

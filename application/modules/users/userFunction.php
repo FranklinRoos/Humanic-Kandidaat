@@ -107,6 +107,7 @@ if(isSet($_SESSION['blad'])&& $_SESSION['blad'] !='user_blad')
         }
 
         echo "</table>";
+     echo "</div>" ;   
         echo "<table>";
         echo "<tr><td colspan='3'></td>";
         //echo "<tr><td>".($prev>=0?"<a href=user.php?user_page=".$prev. "> prev </a>":"prev")."</td>";
@@ -118,7 +119,7 @@ if(isSet($_SESSION['blad'])&& $_SESSION['blad'] !='user_blad')
          echo "<td class=\"prev\">".(($count_users - $to)> 0?"<a href=user.php?user_page=" .$next. "> next </a>":"next")."</td>"; 
         echo "</tr>";
         echo "</table>";    
-    echo "</div>" ;   
+       
         
         
         

@@ -57,9 +57,9 @@ if(isSet($_SESSION['blad'])&& $_SESSION['blad'] !='user_blad')
      
      
         //zaterdag 13 aug 2016 toegevoegd
-   echo "<div id=\"overzichtTabel\">";
+   echo "<div id=\"overzichtTabel\" class=\"table-responsive\">";
           echo "<h3 style=\"text-align:center; color:black;\">Overzicht Geregistreerde kandidaten</h3>";
-        echo "<table class=\"table-condensed\" id=\"edit\" cellpadding=\"3\" cellspacing=\"3\" >";
+        echo "<table class=\"table\" id=\"edit\" cellpadding=\"3\" cellspacing=\"3\" >";
         echo "<tr>";
         echo "<th width=\"50\" align=\"left\">View</th>";
         echo "<th width=\"50\" align=\"left\">Pasfoto</th>";
@@ -67,16 +67,16 @@ if(isSet($_SESSION['blad'])&& $_SESSION['blad'] !='user_blad')
         echo "<th width=\"50\" align=\"left\">Achternaam</th>";
         echo "<th width=\"50\" align=\"left\">Tussenvoegsel</th>";
         echo "<th width=\"50\" align=\"left\">Voornaam</th>";
-        echo "<th width=\"50\" align=\"left\">Straat</th>";
-        echo "<th width=\"50\" align=\"left\">Huisnummer</th>";
-        echo "<th width=\"50\" align=\"left\">Postcode</th>";
+        //echo "<th width=\"50\" align=\"left\">Straat</th>";
+        //echo "<th width=\"50\" align=\"left\">Huisnummer</th>";
+        //echo "<th width=\"50\" align=\"left\">Postcode</th>";
         echo "<th width=\"50\" align=\"left\">Plaats</th>";
         echo "<th width=\"50\" align=\"left\">Telefoon</th>";
         echo "<th width=\"50\" align=\"left\">Geb.Datum</th>";
         echo "<th width=\"50\" align=\"left\">Salaris Indicatie</th>";
         echo "<th width=\"50\" align=\"left\">uitkering-geldig-tot</th>";
-        echo "<th width=\"50\" align=\"left\">Sector-afkomstig</th>";
-        echo "<th width=\"50\" align=\"left\">Bedrijf-grootte</th>";
+        //echo "<th width=\"50\" align=\"left\">Sector-afkomstig</th>";
+        //echo "<th width=\"50\" align=\"left\">Bedrijf-grootte</th>";
         echo "<th width=\"50\" align=\"left\">Rijbewijs</th>";
         echo "<th width=\"50\" align=\"left\">Auto</th>";
         echo "</tr>";
@@ -90,16 +90,16 @@ if(isSet($_SESSION['blad'])&& $_SESSION['blad'] !='user_blad')
             echo "<td>".utf8_encode($bericht->achternaam)."</td>";
             echo "<td>".utf8_encode($bericht->tussenvoegsel)."</td>";
             echo "<td>".utf8_encode($bericht->voornaam)."</td>";
-            echo "<td>".utf8_encode($bericht->straat)."</td>";
-            echo "<td>".utf8_encode($bericht->huisnummer)."</td>";
-            echo "<td>".utf8_encode($bericht->postcode)."</td>";
+            //echo "<td>".utf8_encode($bericht->straat)."</td>";
+            //echo "<td>".utf8_encode($bericht->huisnummer)."</td>";
+            //echo "<td>".utf8_encode($bericht->postcode)."</td>";
             echo "<td>".utf8_encode($bericht->plaats)."</td>";
             echo "<td>".utf8_encode($bericht->telefoon)."</td>";
             echo "<td>".utf8_encode($bericht->geboortedatum)."</td>";
             echo "<td>".utf8_encode($bericht->salaris)."</td>";
             echo "<td>".utf8_encode($bericht->uitkering_geldig_tot)."</td>";
-            echo "<td>".utf8_encode($bericht->user_sector)."</td>";
-            echo "<td>".utf8_encode($bericht->user_bedrijf_grootte)."</td>";
+            //echo "<td>".utf8_encode($bericht->user_sector)."</td>";
+            //echo "<td>".utf8_encode($bericht->user_bedrijf_grootte)."</td>";
             echo "<td>".utf8_encode($bericht->rijbewijs)."</td>";
             echo "<td>".utf8_encode($bericht->auto)."</td>";
             
